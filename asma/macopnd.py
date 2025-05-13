@@ -85,7 +85,7 @@ import macsyms
 #       the underlying complex term's expressions.  The "expressions" are instances
 #       of asmbase.ASMExpr, really a subclass: 
 #          - ASMExprArith for an arithmetic expression
-#          - ASMExprBinary for a logical expresion or
+#          - ASMExprBinary for a logical expression or
 #          - ASMExprChar for a character expression.
 #       These objects utilize Pratt tokens created during the expression preparation
 #       process from the source lexical tokens.  For a CTerm object emulating a
@@ -115,7 +115,7 @@ import macsyms
 # is complete and it can be "popped".  The following lexical symbol then needs to
 # be stacked to allow the returned to state to process it.  Complex terms always
 # set the next state as 'term'.  This module only supports symbolic references.
-# Functions are a future goal.  The framework used to support symbolc variable, in
+# Functions are a future goal.  The framework used to support symbolic variable, in
 # particular multiple levels of parameter sublists and &SYSLIST, will be the
 # basis for macro function support.
 #
@@ -415,13 +415,13 @@ class MacroCSLexer(lexer.CSLA):
 #   update_loc  Update a lexical token with is physical source (ASMPLoc object)
 #
 # Instance Arguments:
-#   lopnd       The asmline.LOperand or asmline.LField object assocated with the
+#   lopnd       The asmline.LOperand or asmline.LField object associated with the
 #               portion of the statement being parsed.
 #   suffix      Operator precedence expressions share actions.  For a given type
 #               of expression, the supplied suffix is appended by the action when
 #               returning the finite-state machine state.  Defaults to ''.
 #               Presently the following suffixes are used:
-#                  d - macro arithmentic expression
+#                  d - macro arithmetic expression
 #                  e - macro binary (logical) expression
 class MacroScope(asmbase.AsmFSMScope):
     def __init__(self,lopnd,suffix=""):
@@ -466,7 +466,7 @@ class MacroScope(asmbase.AsmFSMScope):
     # completed.
     #
     # Method Argument:
-    #   result    Result opbject supplied by a called scope.  Default is None.
+    #   result    Result object supplied by a called scope.  Default is None.
     #             When result is None, the subclass primary() and secondary()
     #             methods must locate or create the result object.
     #
@@ -534,7 +534,7 @@ class MacroScope(asmbase.AsmFSMScope):
     # assembler.AsmParserError that contains the offending lexical token.
     #
     # Method Argument:
-    #   result   Result opbject supplied by a called scope.  Default is None.
+    #   result   Result object supplied by a called scope.  Default is None.
     def primary(self,result=None):
         raise NotImplementedError("%s subclass %s must provide primary() method" \
             % (assembler.eloc(self,"primary",module=this_module),\
@@ -549,7 +549,7 @@ class MacroScope(asmbase.AsmFSMScope):
     # assembler.AsmParserError that contains the offending lexical token.
     #
     # Method Argument:
-    #   result   Result opbject supplied by a called scope.  Default is None.
+    #   result   Result object supplied by a called scope.  Default is None.
     def secondary(self,result=None):
         raise NotImplementedError("%s subclass %s must provide secondary() method" \
             % (assembler.eloc(self,"secondary",module=this_module),\
@@ -668,12 +668,12 @@ class MacroScopeExpr(MacroScope):
             if follow.tid == token.tid:
                 if __debug__:
                     if trace:
-                        print("%s folow tid %s -> True" % (cls_str,token.tid))
+                        print("%s follow tid %s -> True" % (cls_str,token.tid))
                 return True
 
         if __debug__:
             if trace:
-                print("%s folow tid %s -> False" % (cls_str,token.tid))
+                print("%s follow tid %s -> False" % (cls_str,token.tid))
         return False
 
     # Expression scopes do not have the concept of primary or secondary expressions.
@@ -734,9 +734,9 @@ class MacroScopeExprC(MacroScopeExpr):
 #   expr      Character expression object
 #   start     An optional arithmetic expression specifying the substring start.
 #             Default is None.
-#   length    An optional arithemtic expression of the substring length.  Default
+#   length    An optional arithmetic expression of the substring length.  Default
 #             is None.
-#   string    Whehter a Python string should be returned (True) or a macsyms.C_Val
+#   string    Whether a Python string should be returned (True) or a macsyms.C_Val
 #             object (False).  A C_Val object is the default.
 class PChrExpr(PCTerm):
     def __init__(self,expr,start=None,length=None,string=False):
@@ -853,7 +853,7 @@ class ChrExpr(asmbase.CTerm):
     # each lexical token or complex term object into 
     def prepare(self,stmt,desc):
         assert len(self._secondary) in [0,2],\
-            "%s [%s] seconary expression may be 0 or 2, found: %s" \
+            "%s [%s] secondary expression may be 0 or 2, found: %s" \
                 % (assembler.eloc(self,"prepare",module=this_module),stmt.lineno,\
                     len(self._secondary))
 
@@ -1050,7 +1050,7 @@ class AGOScope(MacroScope):
         elif isinstance(result,asmbase.ASMExpr):
             self.opnd.primary(result)
         else:
-            raise ValueError("%s unexpeced result object: %s" \
+            raise ValueError("%s unexpected result object: %s" \
                 % (assembler.eloc(self,"primary",module=this_module),result))
 
     def result_returned(self,result):
@@ -1170,7 +1170,7 @@ class SeqSymScope(MacroScope):
     def primary(self,result=None):
         self.opnd=self.expr_end(source=self.lopnd,line=self._stmt.lineno)
         # List of tokens (should be only one)
-        assert len(self.opnd)==1,"%s unexpected token in primary expresion: %s" \
+        assert len(self.opnd)==1,"%s unexpected token in primary expression: %s" \
             % assembler.eloc(self,"primary",module=this_module)
 
     def secondary(self,result=None):
@@ -1195,7 +1195,7 @@ class SeqSymScope(MacroScope):
 #   symbol    Sequence symbol being referenced (from token)
 #   attr      Optional symbol attribute being referenced
 #   indices   A list of ASMArithExpr objects of each index being requested.
-#             May be an empty list if symbol or parmeter is not subscripted.
+#             May be an empty list if symbol or parameter is not subscripted.
 #             The number of indices can not be validated until the actual symbol
 #             is referenced and it is known whether the symbol is a symbolic
 #             variable (one index) or a macro parameter (multiple are valid)
@@ -1237,7 +1237,7 @@ class PSymRef(PCTerm):
     # Return a label's assembler symbol table entry (assembler.LabelSymbol object)
     # Method Arguments:
     #   label     The string representing the assembler label being queried
-    #   extermal  The current Pratt external helper object
+    #   external  The current Pratt external helper object
     #   excp      Whether an exception should be raised or not.  Specify True to
     #             raise an exception.  Specify False to return None.  Defaults to
     #             False.
@@ -1463,7 +1463,7 @@ class PSymRefCAttr_T(PSymRefCAttr):
             # Nope, not an assembler label
             return "U"
 
-        # Retrive the assembler's value for the label
+        # Retrieve the assembler's value for the label
         ste=self.getSTE(cval._value,external=external,excp=False,\
             debug=debug,trace=trace)
         if ste is None:
@@ -1579,7 +1579,7 @@ class SymbolRef(asmbase.CTerm):
             cls=SymbolRef.a_attr[self.attr]
         except KeyError:
             raise assembler.LabelError(self.label,ltok=self,\
-                msg="attribute %s unsupported in macro arithmetic expressios" \
+                msg="attribute %s unsupported in macro arithmetic expressions" \
                     % self.attr) from None
         return cls(self._primary,self.symname,attr=self.attr,indices=self._secondary)
 
@@ -1591,7 +1591,7 @@ class SymbolRef(asmbase.CTerm):
             cls=SymbolRef.b_attr[self.attr]
         except KeyError:
             raise assembler.LabelError(self.label,ltok=self,\
-                msg="attribute %s unsupported in macro logical expressios" \
+                msg="attribute %s unsupported in macro logical expressions" \
                     % self.attr) from None
         return cls(self._primary,self.symname,attr=self.attr,indices=self._secondary)
 
@@ -1603,7 +1603,7 @@ class SymbolRef(asmbase.CTerm):
             cls=SymbolRef.c_attr[self.attr]
         except KeyError:
             raise assembler.LabelError(self.label,ltok=self,\
-                msg="attribute %s unsupported in macro logical expressios" \
+                msg="attribute %s unsupported in macro logical expressions" \
                     % self.attr) from None
         return cls(self._primary,self.symname,attr=self.attr,indices=self._secondary)
 
@@ -1747,7 +1747,7 @@ class MacroParser(asmbase.AsmCtxParser):
                  "sym":  MPControl("initt",pctx="sym",  scope=SymbolicReference)}
 
     def __init__(self,dm,pm):
-        # Lexical token lists used during initialze() method processing
+        # Lexical token lists used during initialize() method processing
         self.term= [SDBIN,SDHEX,SDCHR,SDDEC,LATTR]
         self.boper=[LOGNOT,LOGICAL,NOT,COMPARE]
         super().__init__(dm,pm,"macs",trace=False)
@@ -1853,7 +1853,7 @@ class MacroParser(asmbase.AsmCtxParser):
     # A current context/scope calls a new context and scope by calling a method
     # dedicated to entering the new context/scope.  This occurs within an action
     # of the current context/scope.  The current/scope knows to where the called
-    # context/scope whould return and constructs that information in a MPControl
+    # context/scope would return and constructs that information in a MPControl
     # object, passed to the called context/scope's entry helper method.
     #
     #      return self.Sub_Call(returnMP)
@@ -1901,7 +1901,7 @@ class MacroParser(asmbase.AsmCtxParser):
         # Enter the new context/scope by returning its initial FSM state
         return newmp.start
 
-    # Returning to a previously stacked scope.  Most of the relavent information
+    # Returning to a previously stacked scope.  Most of the relevant information
     # was placed in the returning scope by the enter_scope() method.  This method
     # uses this information to restablish parsing under the control of the previously
     # pushed scope.
@@ -2349,7 +2349,7 @@ class MacroParser(asmbase.AsmCtxParser):
     # Result: asmbase.ASMExprArith
     # See MacroCSLexer.init_default() method
     #
-    # The macro arithmentic expression does not include any enclosing parenthesis
+    # The macro arithmetic expression does not include any enclosing parenthesis
     # required by the macro statement.  See AGO as an example.
 
     def Arith(self):
@@ -2847,7 +2847,7 @@ class MacroParser(asmbase.AsmCtxParser):
     #        ' &SYM. &SYM &SYM( ''  &&  '(starting-expr,length_expr)
     #         \____________ ____________/ \____________ __________/
     #                      v                           v
-    #               Primary Expression        Secondary Expresions
+    #               Primary Expression        Secondary Expressions
     #
 
     def Chr(self):
@@ -3346,7 +3346,7 @@ class MacroParser(asmbase.AsmCtxParser):
     #         following either the symbol or the ending right parenthesis is
     #         stacked for the calling scope to process.
     #
-    #         +--primary expresion
+    #         +--primary expression
     #         |
     #         v
     #       &SYM(arithemetic-expression)
@@ -3528,7 +3528,7 @@ class MacroParser(asmbase.AsmCtxParser):
         raise assembler.AsmParserError(value,msg=msg)
 
     def ACT_Expected_Aoper(self,value,state,trace=False):
-        self.ACT_Expected("aritmetic operator",value)
+        self.ACT_Expected("arithmetic operator",value)
  
     def ACT_Expected_Comma(self,value,state,trace=False):
         self.ACT_Expected("comma",value)
@@ -3546,7 +3546,7 @@ class MacroParser(asmbase.AsmCtxParser):
         self.ACT_Expected("sequence symbol or left parenthesis",value)
 
     def ACT_Expected_LP_Term(self,value,state,trace=False):
-        self.ACT_Expected("label, self-defining term, currrent location or left "
+        self.ACT_Expected("label, self-defining term, current location or left "
             "parenthesis",value)
 
     def ACT_Expected_Quote(self,value,state,trace=False):

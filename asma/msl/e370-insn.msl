@@ -96,7 +96,7 @@ inst ED     DE   SSA            # EDIT
 inst EDMK   DF   SSA            # EDIT AND MARK
 inst EPAR   B226 RRE            # EXTRACT PRIMARY ADDRESS SPACE NUMBER
 inst EREG   B249 RRE            # EXTRACT STACKED REGISTERS
-inst ESAR   B227 RRE            # EXTRACT SECONARY ADDRESS SPACE NUMBER
+inst ESAR   B227 RRE            # EXTRACT SECONDARY ADDRESS SPACE NUMBER
 inst ESTA   B24A RRE            # EXTRACT STACKED STATE
 inst EX     44   RXA            # EXECUTE
 inst HDR    24   RR             # HALVE (LH)

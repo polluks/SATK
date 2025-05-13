@@ -28,7 +28,7 @@ this_module="asmoper.py"
 import assembler    # Access the assembler for error reporting
 import asmbase      # Access the base operation management classes
 import asmstmts     # Access the statement classes
-import asmline      # Addess a LineError exception
+import asmline      # Address a LineError exception
 import msldb        # Access the Machine Specification Language Processor
 
 
@@ -48,7 +48,7 @@ class MSLcache(object):
 
     def __getitem__(self,item):
         try:
-            # Try to get the instrution cached entry
+            # Try to get the instruction cached entry
             return self.cache[item]
         except KeyError:
             pass  # Try to create a cache entry for the future
@@ -176,7 +176,7 @@ class OperMgr(asmbase.ASMOperTable):
             try:
                 del self.xmode[mode]  # If none, remove the XMODE setting entirely
             except KeyError:
-                pass                  # Alredy gone, that is OK, that's what we wanted
+                pass                  # Already gone, that is OK, that's what we wanted
         else:
             self.xmode[mode]=v
 
@@ -245,7 +245,7 @@ class OperMgr(asmbase.ASMOperTable):
         oper=asmbase.ASMOper(macro.name,asmstmts.MacroStmt,O=O,info=macro)
         self.macros.define(oper)
 
-    # Define the macro directives and other miscelaneous statement types
+    # Define the macro directives and other miscellaneous statement types
     def def_mdirs(self):
         self.def_dir("ACTR", asmstmts.ACTR, O="A")
         self.def_dir("AGO",  asmstmts.AGO,  O="A")
@@ -276,7 +276,7 @@ class OperMgr(asmbase.ASMOperTable):
     def getComment(self,mbstate=0,quiet=False):
         #if self.asm.MM.state==2 and not quiet:
         if mbstate==2 and not quiet:
-            # If this is a loud comment wihin a macro body, treat it as a model stmt.
+            # If this is a loud comment within a macro body, treat it as a model stmt.
             return asmbase.ASMOper("*",asmstmts.ModelStmt)
         return asmbase.ASMOper("*",asmstmts.StmtComment)
 
@@ -310,7 +310,7 @@ class OperMgr(asmbase.ASMOperTable):
         return asmbase.ASMOper(opname,asmstmts.MachineStmt,O=O_attr,info=insn)
 
     # Returns the MSLEntry object retrieved from the MSL database cache
-    # Excpetion:
+    # Exception:
     #   KeyError  if the instruction is not defined in the MSL database
     def getMSL(self,inst):
         return self.cache.getInst(inst)
@@ -358,7 +358,7 @@ class OperMgr(asmbase.ASMOperTable):
             # This uncaught exception occurs when a macro can not be found
             # for the operation.
             #
-            # Perhaps a separate excecption class just for the "not found"
+            # Perhaps a separate exception class just for the "not found"
             # condition is appropriate?  Further research is required on
             # this.  For now, just commenting out the WARNING message.
             #print("WARNING: asmoper.OperMgr.getMacLib - AssemblerError may "\
@@ -397,7 +397,7 @@ class OperMgr(asmbase.ASMOperTable):
             mte=self.macros[macname]
             oper=mte.oper   # Retrieve the ASMOper object from the macro table entry
         except KeyError:
-            # Not found - need to try macro libarary paths if actually reading
+            # Not found - need to try macro library paths if actually reading
             if macread:
                 # Try the MACLIB path and define the macro if found
                 oper=self.getMacLib(macname)
@@ -439,7 +439,7 @@ class OperMgr(asmbase.ASMOperTable):
     # During macro definition the sequence is different:
     #  1. Recognize a macro statement
     #  2. Assume a model statement otherwise.
-    # Method Arguements
+    # Method Arguments
     #   opname  operation name (in upper case) being retrieved
     #   mbstate The state of the current MacroBuilder object
     #   macread Specify True to read a definition from the MACLIB path.  Specify
@@ -495,7 +495,7 @@ class OperMgr(asmbase.ASMOperTable):
                 raise ValueError("%s unexpected MacroBuilder state: %s" \
                     % (assembler.eloc(self,"getOper",module=this_module),mbstate))
 
-     # Operation recoginition outside of macro definitions
+     # Operation recognition outside of macro definitions
 
         # Perform OPSYN replacement.  A deleted operation may be restored by another
         # OPSYN directive that defines the operation to its original value.
@@ -534,7 +534,7 @@ class OperMgr(asmbase.ASMOperTable):
             if debug:
                 print("%s DEBUG looking for macro returned: %s" % (cls_str,oper))
         # Note: if macread is True, and the macro is not defined, the getMacro method
-        # will attempt to access the macro libary path to find the macro definition.
+        # will attempt to access the macro library path to find the macro definition.
         # If found the MACLIBProcessor will be run to define the macro.  The
         # ASMOper object of the newly defined macro is returned, as if it was already
         # defined.
@@ -560,7 +560,7 @@ class OperMgr(asmbase.ASMOperTable):
                         % (cls_str,oper.info.mnemonic))
             return oper
 
-        # Instruction mnemonic not found, try to find assmebler directive:
+        # Instruction mnemonic not found, try to find assembler directive:
         # first by locating an XMODE setting, then by finding the actual
         # directive.
         # Note: XMODE settings translate a generic directive into a specific
@@ -593,7 +593,7 @@ class OperMgr(asmbase.ASMOperTable):
                 if debug:
                     print("%s DEBUG looking for macro returned: %s" % (cls_str,oper))
             # Note: if macread is True, and the macro is not defined, the getMacro
-            # method will attempt to access the macro libary path to find the macro
+            # method will attempt to access the macro library path to find the macro
             # definition.  If found the MACLIBProcessor will be run to define the
             # macro.  The ASMOper object of the newly defined macro is returned, as
             # if it was already defined.
@@ -624,7 +624,7 @@ class OperMgr(asmbase.ASMOperTable):
 
     # Returns the current XMODE setting.  No exceptions raised
     # Returns:
-    #   The XMODE setting, if defined or or the orignal name
+    #   The XMODE setting, if defined or or the original name
     #   The original name, if not defined or the XMODE was disabled
     def getXMODE(self,xmode):
         setting=self.xmode.get(xmode,xmode)
@@ -781,7 +781,7 @@ class MTE(object):
         oper.info._xref=self.xref
         # By passing the same XREF object to each definition of macros with the
         # same names, all references and all definitions of the macros are
-        # accumulated here.  The listing module uses _this_ to preprare the report.
+        # accumulated here.  The listing module uses _this_ to prepare the report.
 
     def __str__(self):
         return "MTE - macro: %s, maclib: %s" % (self.name,self.maclib)

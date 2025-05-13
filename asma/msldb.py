@@ -57,7 +57,7 @@
 # Python Integration:
 #
 # Integration of the MSL processor into another Python module is accomplisehed by
-# importing this module.  Instatiating
+# importing this module.  Instantiating
 #
 # External Processor Integration:
 #
@@ -119,7 +119,7 @@ import re                # Access regular expression support (see Format.source_
 import sys               # Access to exit() method to terminate run
 
 # SATK imports:
-import sopl              # Access the Statement Oriented Paramater Language tool
+import sopl              # Access the Statement Oriented Parameter Language tool
 
 copyright="msldb.py Copyright (C) %s Harold Grovesteen" % "2014, 2015"
 
@@ -155,7 +155,7 @@ class channel(object):
 class icu(object):
     def __init__(self,device,addr=None):
         self.device=device      # device ID that attached to CPU integrated CU
-        self.addr=addr          # Prefered address of the attached device
+        self.addr=addr          # Preferred address of the attached device
 
 class mfield(object):
     rxb={8:0b1000,12:0b0100,16:0b0010,32:0b0001}
@@ -187,7 +187,7 @@ class mfield(object):
                 self.rxb=mfield.rxb[beg]
             except KeyError:
                 cls_str="msldb.py - %s.__init__() -" % self.__class__.__name__
-                raise ValueError("%s usupported vector register field start: %s" \
+                raise ValueError("%s unsupported vector register field start: %s" \
                     % (cls_str,beg))
     def __str__(self):
         rxb=self.isvector()
@@ -318,8 +318,8 @@ class Channel(MSLDBE):
     def __init__(self,els,keep=False):
         super().__init__(els,"channel",keep=keep)
 
-        # channel Statement attrbutes
-        self.experimental='exp' in self.attr    # Set experimental attrbute
+        # channel Statement attributes
+        self.experimental='exp' in self.attr    # Set experimental attribute
 
     def consistent(self): pass
 
@@ -365,7 +365,7 @@ class CPU(MSLDBE):
         self.renames=[]       # List of instruction to be renamed during expansion
 
         # CPU statement attributes
-        self.experimental='exp' in els.attr    # Set experimental attrbute
+        self.experimental='exp' in els.attr    # Set experimental attribute
 
         cls_str="msldb.py - %s.__init__() -" % self.__class__.__name__
         for p in els.parms:
@@ -404,7 +404,7 @@ class CPU(MSLDBE):
 
         if bits not in CPU.valid_addrsize:
             raise MSLError(loc=elp.source,\
-                msg="CPU statement addrmax parameter attribut not "
+                msg="CPU statement addrmax parameter attribute not "
                     "valid (16, 24, 31, 64): %s" % attr)
 
         self.addrmax=bits
@@ -417,7 +417,7 @@ class CPU(MSLDBE):
         attr=elp.attr[0]
         if attr not in CPU.valid_ccw:
             raise MSLError(loc=elp.source,\
-                msg="CPU statement ccw parameter attribut not valid: %s" % attr)
+                msg="CPU statement ccw parameter attribute not valid: %s" % attr)
 
         self.ccw=attr
 
@@ -511,7 +511,7 @@ class CPU(MSLDBE):
         attr=elp.attr[0]
         if attr not in CPU.valid_psw:
             raise MSLError(loc=elp.source,\
-                msg="CPU statement psw parameter attribut not valid: %s" % attr)
+                msg="CPU statement psw parameter attribute not valid: %s" % attr)
 
         self.psw=attr
 
@@ -781,7 +781,7 @@ class Format(MSLDBE):
     def length_proc(self,elp):
         if self.length is not None:
             raise MSLError(loc=elp.source,\
-                msg="format statement encounterd more than one length parameter ")
+                msg="format statement encountered more than one length parameter ")
 
         length=elp.attr[0]
         try:
@@ -1011,11 +1011,11 @@ class Format(MSLDBE):
                     % self.ID)
         if len(attr)<2:
             raise MSLError(loc=elp.source,\
-                msg="format %s statement xopcode paramater missing ending bit number" \
+                msg="format %s statement xopcode parameter missing ending bit number" \
                     % self.ID)
         if len(attr)>2:
             raise MSLError(loc=elp.source,\
-                msg="format %s statement xopcode paramater has too many "
+                msg="format %s statement xopcode parameter has too many "
                     "attributes %s" % (self.ID,len(attr)))
 
         beg_bit,end_bit=self.bit_range(attr[0],attr[1],"xopcode",elp.source)
@@ -1374,7 +1374,7 @@ class Model(MSLDBE):
         attr=elp.attr
         if len(attr)==1:
             raise MSLError(loc=elp.source,msg="model statement cpu parameter "
-                "requires one attrbiute: %s" % len(attr))
+                "requires one attribute: %s" % len(attr))
         if self.cpu is not None:
             raise MSLError(loc=elp.source,msg="model statement cpu parameter "
                 "previously defined, only one allowed" % len(attr))
@@ -1579,7 +1579,7 @@ class MSL(sopl.SOPL):
             raise ValueError("%s database build in error" % cls_str)
         return self.db
 
-    # Provides a deatiled listing of the database content
+    # Provides a detailed listing of the database content
     def dump(self,indent="",string=False):
         s=self.db.dump(indent=indent,string=string)
         if string:

@@ -199,7 +199,7 @@ class ASMStmt(object):
     alt=False      # Whether the alternate statement format is allowed
 
     # Defines the name of the parser to be used for parsing operands separated
-    # when attribut sep=True.  This parser is used when AsmStmt.parse_sep() method
+    # when attribute sep=True.  This parser is used when AsmStmt.parse_sep() method
     # is called.
     parser="mopnd" # Operand parser used by statement
 
@@ -295,7 +295,7 @@ class ASMStmt(object):
         #            operands itself.
         self.opnd_fld=None         # Entire Operation Field (LOperands object)
 
-        # sep=True:  List of LOperand objects.  The statment parser must be prepared
+        # sep=True:  List of LOperand objects.  The statement parser must be prepared
         #            to parse the operands separately.
         self.operands=[]
 
@@ -316,7 +316,7 @@ class ASMStmt(object):
         self.p1_loc=None           # Statement location in Pass 1 (Section relative)
 
      # Pass 2
-        # Upates self.content with actual binary data.
+        # Updates self.content with actual binary data.
         self.p2_loc=None           # Statement location in Pass 2 (absolute)
 
      # Listing
@@ -379,7 +379,7 @@ class ASMStmt(object):
     #          attribute
     # Returns:
     #   the indefn attribute of the macro operand, an asmmacs.Macro object
-    # Excetion:
+    # Exception:
     #   AssemblerError if not within a macro definition
     def ck_in_macro_defn(self,macro,state,oper):
         assert isinstance(macro,asmmacs.MacroBuilder),\
@@ -689,7 +689,7 @@ class ASMStmt(object):
     #
     # Method arguments:
     #   asm        The shared assembler.Assembler instance of the run
-    #   alignment  Alignement of the binary content.
+    #   alignment  Alignment of the binary content.
     #   length     Length of the binary content (can be zero)
     def new_content(self,asm,alignment=0,length=0,T="U",debug=False):
         # Create Binary instance for the new content
@@ -729,7 +729,7 @@ class ASMStmt(object):
     def parse_line(self,asm,alt=None,sep=None,spaces=None,comma=None,debug=False):
         # Parse into LOperand objects, all of the operands in the logical line
 
-        # Allow method call to overide the default object attributes for alt,
+        # Allow method call to override the default object attributes for alt,
         # sep and spaces.  Overrides are used for macro model statement parsing
         if alt is None:
             palt=self.alt
@@ -1529,7 +1529,7 @@ class MacroStmt(ParmStmt):
         self.macro=None       # Macro definition being invoked
         self.label=None       # Statement's label if present
         self.keywords=None    # Statement keyword parameters
-        self.pos=None         # Statement postional parameters
+        self.pos=None         # Statement positional parameters
 
     def legacy_fixup(self,asm):
         pass
@@ -1791,7 +1791,7 @@ class AGO(ASMStmt):
                 raise assembler.AssemblerError(source=self.source,line=lineno,\
                     msg=ape.msg) from None
 
-            # seqsym is a list of tokens (one) of the recognized sequnce symbol
+            # seqsym is a list of tokens (one) of the recognized sequence symbol
             assert len(seqsym)==1,\
                 "%s [%s] operand %s seqsym list, parse_seqsym() result object, "\
                     "contains more than one token: %s" \
@@ -2127,7 +2127,7 @@ class CCW0(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract CCW/CCW0 operand values after expression evalution
+        # Extract CCW/CCW0 operand values after expression evaluation
         code=self.bin_oprs[0].getValue()
         address=self.bin_oprs[1].getValue()
         flags=self.bin_oprs[2].getValue()
@@ -2216,7 +2216,7 @@ class CCW1(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract CCW1 operand values after expression evalution
+        # Extract CCW1 operand values after expression evaluation
         code=self.bin_oprs[0].getValue()
         address=self.bin_oprs[1].getValue()
         flags=self.bin_oprs[2].getValue()
@@ -3983,7 +3983,7 @@ class PSWS(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract PSWS operand values after expression evalution
+        # Extract PSWS operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         a=self.bin_oprs[2].getValue()
         prog=self.bin_oprs[3].getValue()
@@ -4060,7 +4060,7 @@ class PSW360(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract PSW360 operand values after expression evalution
+        # Extract PSW360 operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         amwp=self.bin_oprs[2].getValue()
@@ -4141,7 +4141,7 @@ class PSW67(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract PSW67 operand values after expression evalution
+        # Extract PSW67 operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         amwp=self.bin_oprs[2].getValue()
@@ -4231,7 +4231,7 @@ class PSWBC(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract PSWBC operand values after expression evalution
+        # Extract PSWBC operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         mwp=self.bin_oprs[2].getValue()
@@ -4310,7 +4310,7 @@ class PSWEC(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract PSWEC operand values after expression evalution
+        # Extract PSWEC operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         mwp=self.bin_oprs[2].getValue()
@@ -4442,7 +4442,7 @@ class PSWBi(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract operand values after expression evalution
+        # Extract operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         mwp=self.bin_oprs[2].getValue()
@@ -4592,7 +4592,7 @@ class PSWZ(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract operand values after expression evalution
+        # Extract operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         mwp=self.bin_oprs[2].getValue()
@@ -4708,7 +4708,7 @@ class PSWZS(TemplateStmt):
 
         self.evaluate_operands(asm,debug=edebug,trace=etrace)
 
-        # Extract operand values after expression evalution
+        # Extract operand values after expression evaluation
         sys=self.bin_oprs[0].getValue()
         key=self.bin_oprs[1].getValue()
         mwp=self.bin_oprs[2].getValue()
@@ -4814,7 +4814,7 @@ class REGION(ASMStmt):
 
         region_name=self.region  # Fetch the region name from Pass 0
 
-        # the REGION must already be defined, we are continueing one already started
+        # the REGION must already be defined, we are continuing one already started
         if __debug__:
             if rdebug:
                 print("%s [%s] referencing region in symbol table: '%s'" \
@@ -4867,7 +4867,7 @@ class RMODE(ASMStmt):
 
 # SETA Macro Directive - Oper Type: MS
 #
-# Set a local or global arithemetic symbolic variable or array element
+# Set a local or global arithmetic symbolic variable or array element
 #
 # &sym(n) SETA  arithmetic expression
 

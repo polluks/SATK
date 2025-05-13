@@ -36,7 +36,7 @@
 # assemblers.
 
 # ASMA specific behavior
-#  - Instuction mnemonics and assembler directives are case insensitive
+#  - Instruction mnemonics and assembler directives are case insensitive
 #  - EQU second optional operand allows explicit specification of equate symbol
 #    length.
 #  - ORG only operates with relative addresses within the active CSECT or DSECT
@@ -74,7 +74,7 @@
 #  ------
 #
 #  During pass 1 all CSECT's, DSECT'S and REGION's are established.  ORG statements
-#  are acted upon.  Relative addresses are asigned to image content generating
+#  are acted upon.  Relative addresses are assigned to image content generating
 #  statements and associated symbols.  CSECT's are bound to physical addresses
 #  with their respective regions and regions are located within the final image.
 #  Note: actual binary image content has yet to be built.
@@ -82,7 +82,7 @@
 #  Pass 2 - Object Generation - assemble() method
 #  ------
 #
-#  All expressions that have not as of yet been evaluted are done so.  The results
+#  All expressions that have not as of yet been evaluated are done so.  The results
 #  are used to create the object content of constants and machine instructions.  At
 #  the end of the pass, all object content is consolidated into their respective
 #  regions and CSECTS.  The regions are concatenated together to in the sequence
@@ -290,7 +290,7 @@ class AsmStats(object):
 
     # Returns True if timer is stopped
     def stopped(self,tname):
-        timer=self.__fetch(tname,"stoped")
+        timer=self.__fetch(tname,"stopped")
         return timer.stopped()
 
     # Update a timer with a better start time
@@ -446,7 +446,7 @@ import re            # Regular expression support
 import sys           # Need hexversion attribute and exit function
 
 # SATK imports - PYTHONPATH must include tools/lang, tools/ipl
-import satkutil      # Useful miscelaneous functionality
+import satkutil      # Useful miscellaneous functionality
 import codepage      # Access ASCII/EBCDIC code pages
 import hexdump       # Useful ad hoc dumping of binary data
 
@@ -469,7 +469,7 @@ ws="[ \t\r\f\v]"                    # White space characters
 stuff=".*"                          # Stuff at the end of the line
 opend="([ ]|$)"                     # End of operands, a space or end of string
 
-# Label pattern with special chracters
+# Label pattern with special characters
 label="[a-zA-Z%s][a-zA-Z0-9%s]*" % (char,char)
 label_re=re.compile(label)
 
@@ -526,8 +526,8 @@ class AsmParserError(Exception):
 #  +-------------------------------------+
 #
 
-# This excpetion is used to discontinue processing and report a user generated
-# error.  These errors are user correctable.  All ofther excpetions raised by this
+# This exception is used to discontinue processing and report a user generated
+# error.  These errors are user correctable.  All ofther exceptions raised by this
 # module represent unexpected situations encountered by the assembler and require
 # programming corrections.
 
@@ -583,12 +583,12 @@ class AssemblerError(Exception):
         self.line=line       # Global statement number of Line where the error occurred
         self.info=info       # If True, not an error, an informational message
         self.warning=warning # If True, error is listed but statement is not ignored
-        # If True, error not reported with statment only in the summary
+        # If True, error not reported with statement only in the summary
         self.nostmt=nostmt
 
         # This results in the following location strings
         # [line] @[line:pos]-fileno  source is present
-        # [line:linepos]             line and position in line is availalbe
+        # [line:linepos]             line and position in line is available
         # [line]                     only line is available
         # or no position             line and source are both None
         src=""
@@ -743,7 +743,7 @@ class AsmOut(object):
 #                generation is the responsibility for the front end process.
 #
 
-# This is the base class for the assembler.  It assembles individiual assembler
+# This is the base class for the assembler.  It assembles individual assembler
 # statements presented to it.  Final output is returned in the form of an Image
 # class instance.  The image class attributes are the various forms of output from
 # the ASMA assembler.
@@ -787,7 +787,7 @@ class Assembler(object):
     #   mslpath     Path Manager for  the Machine Specification Language database
     #   aout        AsmOut object describing output characteristics.
     #   addr        Size of addresses in this assembly.  Overrides MSL CPU statement
-    #   case        Enables case sensitivity for lables, symbolic variables and
+    #   case        Enables case sensitivity for labels, symbolic variables and
     #               sequence symbols.  Defaults to case insensitive.
     #   czam        Whether CZAM is enabled or not
     #   debug       The global Debug Manager to be used by the instance.  In None
@@ -911,7 +911,7 @@ class Assembler(object):
 
         # Manage ASCII/EBCDIC codepages by building the codepage.Translator object
         self.trans=self.__init_codepage()
-        # The Translater object is available now via this object attribute and
+        # The Translator object is available now via this object attribute and
         # in modules that import assembler via assembler.CPTRANS
 
         # Literal Pool Management
@@ -1044,7 +1044,7 @@ class Assembler(object):
     #   as     an assembler.AssemblerError object
     #   stmt   a asmstmts.AsmStmt object
     #   string a debugging message when debug=True
-    #   debug  Whether debugging messges are generated (True) or not (False)
+    #   debug  Whether debugging messages are generated (True) or not (False)
     def _ae_excp(self,ae,stmt,string="",debug=False):
         if stmt is not None:
             stmt.ae_error(ae)
@@ -1173,7 +1173,7 @@ class Assembler(object):
         except KeyError:
             pass
 
-    # Create an unnamed control section and regiser it with the active region
+    # Create an unnamed control section and register it with the active region
     def _csect_unname(self,debug=False):
         section=Section("")
 
@@ -1350,7 +1350,7 @@ class Assembler(object):
     #   stmt    The Stmt object whose label is being defined.  The Stmt.content's
     #           Binary object defines the label's value.
     #   label   The label being defined
-    #   length  The length assigned to the label.  If None is specified or ommitted,
+    #   length  The length assigned to the label.  If None is specified or omitted,
     #           the length of the of the Stmt.content Binary object becomes the
     #           label's assigned length.  Defaults to None.
     def _label_create(self,stmt,label,length=None,T="U",S=0,I=0):
@@ -1493,7 +1493,7 @@ class Assembler(object):
     def _symbol_ref(self,sym):
         return self.ST.get(sym)
 
-    # Retrieve the name of the current active constrol section.  If no active
+    # Retrieve the name of the current active control section.  If no active
     # section exists, the empty string (indicating the unnamed control section)
     # it returned
     def _sysect(self):
@@ -1570,9 +1570,9 @@ class Base(object):
         # The absolute address associated with this register when used for
         # direct addressing.  This applies to register 0 only for all but one
         # mainframe system.  The 360-20 utilizes eight registers (0-7) for
-        # direct mode addressing.  This asembler supports both situations.
+        # direct mode addressing.  This assembler supports both situations.
         #
-        # Regardless of the registered address, direct allways defaults to its
+        # Regardless of the registered address, direct always defaults to its
         # absolute address.  This works for register 0 getting assigned a DSECT
         # as its base.  Pretty unpredictable results are likely for other direct
         # registers.  Assigning a DSECT to register 1, when 1 is a direct mode
@@ -1580,11 +1580,11 @@ class Base(object):
         self.direct=direct
 
         # The register with which this Base instance represents its most recent
-        # USING assigment
+        # USING assignment
         self.reg=reg
 
         # The address assigned by the USING directive.  The address may be
-        # relative or absolute.  At the stage of the assingment within the
+        # relative or absolute.  At the stage of the assignment within the
         # assembler, a CSECT will be utilizing absolute addresses and only a
         # DSECT symbol provide a relative address.  Because many of the
         # addresses will be relative addresses converted to absolute, the test
@@ -1625,7 +1625,7 @@ class Base(object):
                 % (eloc(self,"__init__"),repr(addr)))
 
 
-    # This method is used to comapre two Base instances for sorting purposes.
+    # This method is used to compare two Base instances for sorting purposes.
     # The staticmethod BaseMgr.compare() is just a wrapper for this method.
     # The staticmethod is required because functools requires an unbound
     # method or function, that is, a method or function not bound to an object
@@ -1686,7 +1686,7 @@ class Base(object):
                 return 1
 
             # This means the displacements are equal so select by highest
-            # register nummber:
+            # register number:
             return self.__cmp__reg(other)
 
         # Case 2 - self is non-negative and other is negative
@@ -1708,7 +1708,7 @@ class Base(object):
                 return 1
 
             # This means the displacements are equal so select by highest
-            # register nummber:
+            # register number:
             return self.__cmp__reg(other)
 
         raise ValueError("%s two base register candidates failed to be placed "\
@@ -1723,7 +1723,7 @@ class Base(object):
         #    if self.reg>other.reg:
         #        return 1
         #else:
-            # pick the higest base/displacement register candidate
+            # pick the highest base/displacement register candidate
         #    if self.reg<other.reg:
         #        return 1
         #    if self.reg>other.reg:
@@ -1803,7 +1803,7 @@ class BaseState(object):
         self.rbases={}    # Active USING assignments to relative bases
 
     # This method removes a previously registered base.  If it was not
-    # previously registered it is silenty ignored.  The effect of the DROP
+    # previously registered it is silently ignored.  The effect of the DROP
     # statement is to make a register unavailable for use as a base.  It does
     # not matter whether it was previously available or not.
     def drop(self,reg,trace=False):
@@ -2000,7 +2000,7 @@ class BaseMgr(object):
     # a symbol to a base/displacement combination.
     def __select(self,addr,possible,trace=False):
         if len(possible)==0:
-            raise KeyError           # No possibilies exist, quit now.
+            raise KeyError           # No possibilities exist, quit now.
         elif len(possible)==1:
             select_list=possible     # Only one possible, no need to sort the list
         else:
@@ -2013,7 +2013,7 @@ class BaseMgr(object):
         return (reg,disp)            # Return the base/displacement tuple
 
     # This method removes a previously registered base.  If it was not previously
-    # registered it is silenty ignored.  The effect of the DROP statement is to
+    # registered it is silently ignored.  The effect of the DROP statement is to
     # make a register unavailable for use as a base.  It does not matter whether
     # it wss previously available or not.
     def drop(self,reg,trace=False):
@@ -2027,7 +2027,7 @@ class BaseMgr(object):
     # failure.  It is the responsibility of the caller to provide any user
     # reporting.
     # Method Arguments:
-    #   addr    The Address object being resolved into a base/displacment pair
+    #   addr    The Address object being resolved into a base/displacement pair
     #   size    Size of the displacement field in bits (12 or 20)
     #           12 bit displacements are unsigned, 20 bit displacements are
     #           signed.
@@ -2089,7 +2089,7 @@ class BaseMgr(object):
         # The last entry of the stack is the most current saved state.
 
     # This method registers a specific register and its associated base address.
-    # Per the semantics of the USING directive, a new registration supercedes
+    # Per the semantics of the USING directive, a new registration supersedes
     # a previous one.
     def using(self,reg,addr,trace=False):
         cls_str="assembler.py %s.using() -" % self.__class__.__name__
@@ -2221,7 +2221,7 @@ class LocationCounter(object):
             return None
         return self.location.clone()
 
-    # Based upon the content of the statement the location counter will be upated
+    # Based upon the content of the statement the location counter will be updated
     # for next statement.
     def update(self,bin,debug=False):
         if __debug__:
@@ -2346,7 +2346,7 @@ class Binary(object):
         return bytes(b)
 
     # Update the binary imaage content in self.barray.  The data argument must be
-    # slicable into the bytearray.
+    # sliceable into the bytearray.
     #
     # Method arguments:
     #   data     This must be an immutable bytes list
@@ -2390,7 +2390,7 @@ class Binary(object):
                     % (eloc(self,"update"),self.__class__.__name__,\
                         self.loc,at,end,dlen))
 
-        # Upate the binary image content
+        # Update the binary image content
         self.barray[at:end]=d
 
         if finalize:
@@ -2402,8 +2402,8 @@ class Binary(object):
         return self.loc
 
 # This class is used to hold storage content from DC/DS statements
-# The container holds one or more Binary objects.  It takes the alignement
-# of the first Binary and location of the first Binary opject in the area.
+# The container holds one or more Binary objects.  It takes the alignment
+# of the first Binary and location of the first Binary object in the area.
 # The Area derives its length of all of the combined Binary objects, similar to
 # a Section, but embedded within a section.  This is a pseudo-container.  It is
 # only used in a Stmt instance to establish the size of a symbol associated with
@@ -2503,7 +2503,7 @@ class Content(Binary):
         # Allocation system - Supplied by subclass during initialization, if used.
         #self._allocation=None
 
-    # Return the current lengh
+    # Return the current length
     def __len__(self):
         return self._alloc
 
@@ -3072,7 +3072,7 @@ class LabelSymbol(asmbase.ASMSymEntry):
 #  +---------------+
 #
 
-# This class defines a single occurence of a literal within a pool
+# This class defines a single occurrence of a literal within a pool
 # Instance Argument:
 #   asm    the global assembler.Assembler object
 #   stmt   the ASMStmt object initially referencing the statement.
@@ -3091,9 +3091,9 @@ class Literal(LabelSymbol):
         super().__init__(opnd.text,self,length=None,T="U",S=0,I=0)
 
         self.asm=asm           # The global assembler.Assembler object
-        self.stmt=stmt         # Defining or referencing statment
+        self.stmt=stmt         # Defining or referencing statement
         self.operand=opnd      # The logical operand on which this object is based
-        self.stmt=stmt         # initial referencing statment
+        self.stmt=stmt         # initial referencing statement
         self.ndx=ndx           # Operand index number in statement
 
         # The trace setting of the originating LTORG statement
@@ -3142,7 +3142,7 @@ class Literal(LabelSymbol):
         val=self.compute()
         if __debug__:
             if debug:
-                print("%s literal operand evalutates to: %s" \
+                print("%s literal operand evaluates to: %s" \
                     % (eloc(self,"evaluate"),val))
         return val
 
@@ -3300,7 +3300,7 @@ class Image(object):
 # Label Definition process for EQU statements
 #    1.  Evaluate the expression.  If it fails mark retry=True, and undef=True
 # Statement status:
-#   retry  1   Whether an expression has an undefined symbol and needs evalutation
+#   retry  1   Whether an expression has an undefined symbol and needs evaluation
 #              This occurs when LabelError is raised.  This is a definition issue
 #   unaddr 4   Whether expression requires address (rather than Positions)
 #              This occurs when PosArithError is raised which can only occur
@@ -3324,7 +3324,7 @@ class STMTProcessor(asmbase.ASMProcessor):
 
         # Pass 0
         self.stmts=[]        # Populated by initial input pass
-        self.lineno=1        # Global statement lineno assingments
+        self.lineno=1        # Global statement lineno assignments
 
         self.deferred=[]
         self.cur_pass=None   # The current method handling this pass
@@ -3455,7 +3455,7 @@ class STMTProcessor(asmbase.ASMProcessor):
         for r in asm.imgwip.elements:
             r.assign_all(debug=ctrace)
 
-        # Make all of the self.loc relative adresses into absolute addresses and
+        # Make all of the self.loc relative addresses into absolute addresses and
         # do the same for equate symbols.
         for r in asm.imgwip.elements:
             r.make_absolute(debug=ctrace)
@@ -3494,7 +3494,7 @@ class STMTProcessor(asmbase.ASMProcessor):
                            % (eloc(self,"Pass2"),s.lineno,self.cur_phase,s))
                 continue
 
-            asm.cur_stmt=s   # Make current statement referencable globally
+            asm.cur_stmt=s   # Make current statement referenceable globally
 
             asm._track_loc(s)
 
@@ -3543,7 +3543,7 @@ class STMTProcessor(asmbase.ASMProcessor):
 
     # Runs the assembler.
     # Returns:
-    #   True if successul run
+    #   True if successful run
     #   False if unsussessful run
     def run(self,asm,filename):
         assert isinstance(filename,str),\

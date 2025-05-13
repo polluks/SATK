@@ -142,7 +142,7 @@ inst STM    90   RSA            # STORE MULTIPLE (32)
 inst SVC    0A   I              # SUPERVISOR CALL
 inst TM     91   SI             # TEST UNDER MASK
 inst TR     DC   SSA            # TRANSLATE
-inst TRT    DD   SSA            # TRASNLATE AND TEST
+inst TRT    DD   SSA            # TRANSLATE AND TEST
 inst TS     9300 S0             # TEST AND SET
 inst UNPK   F3   SSB            # UNPACK
 inst X      57   RXA            # EXCLUSIVE OR (32)
@@ -271,7 +271,7 @@ iset s370-DIRECT
 
 # DUAL ADDRESS SPACE FACILITY
 inst EPAR  B226 RRE             # EXTRACT PRIMARY ADDRESS SPACE NUMBER
-inst ESAR  B227 RRE             # EXTRACT SECONARY ADDRESS SPACE NUMBER
+inst ESAR  B227 RRE             # EXTRACT SECONDARY ADDRESS SPACE NUMBER
 inst IAC   B224 RRE             # INSERT ADDRESS SPACE CONTROL
 inst IVSK  B223 RRE             # INSERT VIRTUAL STORAGE KEY
 inst LASP  E500 SSE2     P      # LOAD ADDRESS SPACE CONTROL

@@ -182,7 +182,7 @@ class ASMExprArith(ASMExpr):
             if debug:
                 print("%s: %s expr before: %s" % (desc,lineno,expr))
 
-        # Now popultate it with pratt tokens from lexical tokens usign their
+        # Now popultate it with pratt tokens from lexical tokens using their
         # atoken() method.
         for ltok in self.tokens:
             if isinstance(ltok,CTerm):
@@ -227,7 +227,7 @@ class ASMExprBinary(ASMExpr):
             if debug:
                 print("%s: %s expr before: %s" % (desc,lineno,expr))
 
-        # Now popultate it with pratt tokens from lexical tokens usign their
+        # Now popultate it with pratt tokens from lexical tokens using their
         # btoken() method.
         for ltok in self.tokens:
             if isinstance(ltok,CTerm):
@@ -272,7 +272,7 @@ class ASMExprChar(ASMExpr):
             if debug:
                 print("%s: %s expr before: %s" % (desc,lineno,expr))
 
-        # Now popultate it with pratt tokens from lexical tokens usign their
+        # Now popultate it with pratt tokens from lexical tokens using their
         # atoken() method.
         for ltok in self.tokens:
             if __debug__:
@@ -400,7 +400,7 @@ class ASMOperand(object):
         self._primary=obj
         assert len(self._expr)==0,\
             "%s can not add primary expression to expression list as first "\
-                "expression, exressions in list: %s" \
+                "expression, expressions in list: %s" \
                     % (assembler.eloc(self,"primary",module=this_module),\
                         len(self.expr))
         self._expr.append(obj)
@@ -433,13 +433,13 @@ class ASMOperand(object):
 #
 # Instance Methods Mirroring a asmtokens.LexicalToken object:
 #   atoken     Returns the arithmetic Pratt token for this object.  Defaults to
-#              ptoken() method if not overriden by a subclass.
+#              ptoken() method if not overridden by a subclass.
 #   btoken     Returns the binary (logical) Pratt token for this object.  Defaults
-#              to ptoken() method if not overriden by a subclass.
+#              to ptoken() method if not overridden by a subclass.
 #   ctoken     Returns the character Pratt token for this object.  Defaults to
-#              ptoken() method if not overriden by a subclass.
+#              ptoken() method if not overridden by a subclass.
 #   ptoken     Returns the default Pratt token for this object.
-#   syntax     Sets operator syntax attibutes.  Subclasses should never override.
+#   syntax     Sets operator syntax attributes.  Subclasses should never override.
 #
 # Instance Methods Inherited from asmbase.ASMOperand:
 #   display    Creates a printable version of the operand
@@ -667,7 +667,7 @@ class ASMOperTable(object):
     def __str__(self):
         return "%s" % self.table
 
-    # Retireve an operation from the table
+    # Retrieve an operation from the table
     # Returns:
     #   The operation's ASMOper object
     # Exceptions:
@@ -914,14 +914,14 @@ class AsmFSMScope(fsmparser.PScope):
         token.update_loc(line,loc)
 
 
-# Context specifc scope base class
+# Context specific scope base class
 class AsmCtxScope(AsmFSMScope):
     def __init__(self):
         super().__init__()
 
         # The statements operation field in upper case.
         self.stmt_inst=None  # See the statement() method
-        self.stmt_lineno=None  # The statemetn's assemly line number
+        self.stmt_lineno=None  # The statemetn's assembly line number
 
     def statement(self,stmt):
         #assert isinstance(stmt,assembler.Stmt),\
@@ -1011,7 +1011,7 @@ class AsmCtxParser(fsmparser.FSMContext):
 #
 
 # This class is the base class for managing an instruction's or assembler directive's
-# operands.  Each operand in the source input is convered into a subclass of Operand.
+# operands.  Each operand in the source input is converted into a subclass of Operand.
 class Operand(object):
     def __init__(self,name):
         self.name=name       # An operand name.
@@ -1023,7 +1023,7 @@ class Operand(object):
         self.fields=0x000    # From validate_expr() method (valid and invalid)
 
         # Evaluated expressions.  Only an Address or int object is returned by
-        # expression evalution.  Attribute is set by the evaluate() method
+        # expression evaluation.  Attribute is set by the evaluate() method
         self.values=[None,None,None]
 
         # Address for listing set by resolve() method
@@ -1152,7 +1152,7 @@ class Single(Operand):
         if typ in ["I","M","R","RI","V"]:
             return self.immediate
         cls_str="assembler.py - %s.field() -" % self.__class__.__name__
-        raise ValueError("%s upsupported machine type requested: %s" \
+        raise ValueError("%s unsupported machine type requested: %s" \
             % (cls_str,typ))
 
     # Returns this single operand's value.  Used by assembler directives
@@ -1267,7 +1267,7 @@ class SingleRelImed(Operand):
         if typ == "RELI":
             return self.relimed
         cls_str="assembler.py - %s.field() -" % self.__class__.__name__
-        raise ValueError("%s upsupported machine type requested: %s" \
+        raise ValueError("%s unsupported machine type requested: %s" \
             % (cls_str,typ))
 
     # Returns this single operand's target destination
@@ -1315,7 +1315,7 @@ class SingleRelImed(Operand):
 #   0x210 -  region-address(base)                 [isAbsolue,  int,  None]     int
 #   0x210 -  DSECT-Address(base)                  [isDummy,    int,  None]     int
 #
-# Note: 0x210 is equivalent to 0x200 with expicit USING statement.  Is this useful?
+# Note: 0x210 is equivalent to 0x200 with explicit USING statement.  Is this useful?
 #
 # Preparing this operand for presentation to the machinery that builds machine
 # instructions requires the following actions:
@@ -1370,7 +1370,7 @@ class Storage(Operand):
             return self.disp %  4096
 
         cls_str="assembler.py - %s.field() -" % self.__class__.__name__
-        raise ValueError("%s upsupported machine type requested: %s" \
+        raise ValueError("%s unsupported machine type requested: %s" \
             % (cls_str,typ))
 
     # Resolves explicit/implicit values for operand 'opn' in statement number 'line'
@@ -1436,7 +1436,7 @@ class Storage(Operand):
 # registers assignments.
 #
 # Base register for DSECT displacements is implied from the current relative USING
-# asignments.
+# assignments.
 #
 # Lengths are implied from the expression's root symbol's length.  The expression's
 # root symbol is the one to which an integer value is added or subtracted.
@@ -1485,7 +1485,7 @@ class StorageExt(Storage):
             if typ == "L":
                 return max(0,self.length-1)
 
-        raise ValueError("%s upsupported machine type requested: %s index=%s" \
+        raise ValueError("%s unsupported machine type requested: %s index=%s" \
             % (assembler.eloc(self,"field"),typ,self.isIndex))
 
     def resolve(self,asm,stmt,opn,trace=False):
@@ -1623,7 +1623,7 @@ class ASMProcessor(object):
     #           requiring access to phase numbers must use these attributes to
     #           ensure consistent number usage even when phases are added or deleted.
     #
-    #           Phase names may not confict with other attributes a the time of
+    #           Phase names may not conflict with other attributes a the time of
     #           definition.  This includes method names of the subclass.
     #   method  The bound method of the subclass that processes this phase.
     #           Use self.method not Class.method.  Phase methods are defined with
@@ -1811,7 +1811,7 @@ class ASMSymEntry(object):
         self["T"]=T
         self["S"]=S
         self["I"]=I
-        # Set the legnth attribute if supplied
+        # Set the length attribute if supplied
         if length is not None:
             self["L"]=length
 
@@ -1821,7 +1821,7 @@ class ASMSymEntry(object):
     # Retrieves symbol attribute values
     def __getitem__(self,key):
         assert isinstance(key,str) and len(key)==1,\
-           "'key' arguement must be a string of one character: '%s'" % key
+           "'key' argument must be a string of one character: '%s'" % key
 
         return self.attrs[key]
 
@@ -1833,7 +1833,7 @@ class ASMSymEntry(object):
         self.attrs[key]=value
 
     # Update attributes.  Each updated attribute is an undefined keyword argument
-    # accessed bia the **attrs dictionary, for exmaple update(I=5,T="A")
+    # accessed bia the **attrs dictionary, for example update(I=5,T="A")
     def update(self,**attrs):
         for atr,value in attrs.items():
             self.attrs[atr]=value
@@ -1941,11 +1941,11 @@ class ASMSymTable(object):
             labels.sort()
         return labels
 
-    # Return an interator of symbol labels
+    # Return an iterator of symbol labels
     def labels(self):
         return self.tbl.keys()
 
-    # Return an interator of ASMSymEntry objects
+    # Return an iterator of ASMSymEntry objects
     def symbols(self):
         return self.tbl.values()
 

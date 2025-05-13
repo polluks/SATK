@@ -50,7 +50,7 @@ class BufferEmpty(Exception):
     def __init__(self):
         super().__init__()
 
-# This excpetion is raised by a source when it has been exhausted.
+# This exception is raised by a source when it has been exhausted.
 class SourceEmpty(Exception):
     def __init__(self):
         super().__init__()
@@ -374,7 +374,7 @@ class PoolSource(InjectableSource):
 #
 #  +-------------------------------------+
 #  |                                     |
-#  |   Pysical Input Text Line Objects   |
+#  |   Physical Input Text Line Objects   |
 #  |                                     | 
 #  +-------------------------------------+
 #
@@ -404,7 +404,7 @@ class PhysLine(object):
 
         # Established by subclass init() method
         self.cont=False         # Whether physical line is continued
-        self.empty=False        # Phyiscal line is empty
+        self.empty=False        # Physical line is empty
         self.text=None          # Actual parsable content of the line
 
         # Physical line flags - set below in this __init__() method
@@ -484,7 +484,7 @@ class StreamLine(PhysLine):
         content=self.content[:-8]
         # Last byte is continuation indicator
         if content[-1] != " ":
-            # contination found, treat it as a back slash
+            # continuation found, treat it as a back slash
             self.cont=True
             self.text=content[:71]
         else:
@@ -547,7 +547,7 @@ class LineBuffer(object):
             self._opath=pathmgr
         self._env=env              # Environment variable used by this LineBufer
         self._depth=depth          # Supported depth of input sources.
-        self._seq=seq              # Enable 80 collumn card handling
+        self._seq=seq              # Enable 80 column card handling
         self._sources=[]           # List of input sources
         self._files=[]             # List of input files
         self._cur_src=None         # Current active source
@@ -622,7 +622,7 @@ class LineBuffer(object):
 
     # Retrieve the next input Physical line object from the current source
     # Exceptions:
-    #   BufferEmpty when all input is exhaused
+    #   BufferEmpty when all input is exhausted
     def getLine(self):
         if self._end:
             raise ValueError("%s input statements present after END statement" \

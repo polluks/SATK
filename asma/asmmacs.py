@@ -54,7 +54,7 @@
 # supports arithmetic expressions, the approach is less feasible in the generalized
 # approach in the new pratt3.py module.  The real requirements for expression
 # recognition is to convert lexical tokens into objects that can be used by the
-# precedence evalutor.  This does push certain syntactical errors into the precedence
+# precedence evaluator.  This does push certain syntactical errors into the precedence
 # evaluator.
 #
 # The seqparser.py module is representative of this approach based solely on
@@ -74,7 +74,7 @@ import re                     # Access regular expressions
 
 # SATK imports:
 from satkutil import method_name       # Access the method names in method objects
-import pratt3                 # Access a number of expression evalutor objects
+import pratt3                 # Access a number of expression evaluator objects
 
 # ASMA imports:
 #import asmcards               # Access the continuation support
@@ -99,10 +99,10 @@ import asmtokens              # Access Pratt expression evaluators
 #  Case [In]Sensitivity
 #  ---- ---------------
 
-# Assember case sensitivity is globally controlled by the assembler.Assembler object's
+# Assembler case sensitivity is globally controlled by the assembler.Assembler object's
 # case attribute provided when the object is instantiated.  It is set to True
 # when the asma.py command-line argument '--case' is present.  It defaults to False
-# othewise.
+# otherwise.
 #
 # Macro symbol and sequence symbol case sensitivity is controlled by the global
 # case attribute.  Macro symbol access is provided through the SynbolID object.
@@ -118,7 +118,7 @@ import asmtokens              # Access Pratt expression evaluators
 # asmfsmbp.SymRefPart  - A searched matched by the SymRefType pattern.
 #
 # SymRefRepMO is a object dedicated to managing the regular expression match
-# object created by the lexical type classe asmfsmbp.SymRefType and made available
+# object created by the lexical type class asmfsmbp.SymRefType and made available
 # in the asmfsmbp.SymRefToken object.  Both asmfsmbp.SymRefToken and
 # asmfsmbp.SymRefRepMO classes provide the SymID method for the purpose of creating.
 # A SymbolID object from the recognized string. The state of case sensitivity must
@@ -153,7 +153,7 @@ import asmtokens              # Access Pratt expression evaluators
 # AIF) the respective MacroLanguage method handles the case sensitivity.
 
 
-# This excpetion is used when a user error occurs during the invocation of a
+# This exception is used when a user error occurs during the invocation of a
 # macro.  assembler.AssemblerError is raised for user errors during macro
 # definition.
 #
@@ -202,7 +202,7 @@ class MacroError(Exception):
 #              string.  Default is None.
 #   pos        A list of positional parameters.  Each parameter is a string with
 #              starting with an '&'.  Default is an empty list.
-#   keywords   A dictionary of keyword positional paramaters with their assigned
+#   keywords   A dictionary of keyword positional parameters with their assigned
 #              default values.  Each parameter is a string starting with an '&'.
 #              Each default value is a string.  Default is an empty dictionary.
 class Prototype(object):
@@ -353,7 +353,7 @@ class Macro(object):
         self.syslist=self.syslist or syslist
         self.engine.define(SETA(lineno,symid,expr_list),seq=None)
 
-    # Add a SETB operaion
+    # Add a SETB operation
     def _setb(self,lineno,symid,expr,debug=False,syslist=False):
         self.syslist=self.syslist or syslist
         self.engine.define(SETB(lineno,symid,expr),seq=None)
@@ -477,7 +477,7 @@ class Macro(object):
                 if ndx<poss:
                     val=stmt_pos[ndx]
                     if val is None:
-                        pval=Parm_Val()   # Ommitted positional parameter
+                        pval=Parm_Val()   # Omitted positional parameter
                     else:
                         pval=Parm_Val(value=stmt_pos[ndx].value)
                     if self.syslist:
@@ -584,7 +584,7 @@ class MacroEngine(object):
         op.location(next_loc)
         self.ops.append(op)
 
-    # Converts an macro operation index into its relavant statement
+    # Converts an macro operation index into its relevant statement
     # Method Argument:
     #   n   macro operation index value
     # Returns:
@@ -652,7 +652,7 @@ class EngineState(object):
         #
         # Next index of the next operation to be performed.
         self.next=None
-        # If not None, the resulting model statement fron this cycle of the MacroEngine
+        # If not None, the resulting model statement from this cycle of the MacroEngine
         self.result=None
 
         # Global state of the MacroEngine for this invocation.
@@ -678,9 +678,9 @@ class EngineState(object):
             raise MacroError(invoke=True,msg="aborted - ACTR exhausted")
 
     # This method evaluates macro expressions during macro invocation.  It is
-    # the interface to asmbase.ASMExpr expression evalutaion.
+    # the interface to asmbase.ASMExpr expression evaluation.
     # Method Arguments:
-    #   expr    The asmbase.ASMExpr subclass being evalutated
+    #   expr    The asmbase.ASMExpr subclass being evaluated
     # Returns:
     #   a A_Val, B_Val, C_Val object or integer
     # Exception:
@@ -772,7 +772,7 @@ class MacroOp(object):
     #
     # Method arguments:
     #   state   The active EngineState object
-    #   expr    The pratt3.PExpr object containing the PToken objects being evluated
+    #   expr    The pratt3.PExpr object containing the PToken objects being evaluated
     #   peval   The pratt3.PParser object performing the evaluation
     # Returns:
     #   a A_Val, B_Val, C_Val object or integer
@@ -787,10 +787,10 @@ class MacroOp(object):
             raise MacroError(invoke=True,msg=msg) from None
 
     # This method evaluates macro expressions during macro invocation.  It is
-    # the interface to asmbase.ASMExpr expression evalutaion.
+    # the interface to asmbase.ASMExpr expression evaluation.
     # Method Arguments:
     #   state   The active EngineState object
-    #   expr    The asmbase.ASMExpr subclass being evalutated
+    #   expr    The asmbase.ASMExpr subclass being evaluated
     # Returns:
     #   a A_Val, B_Val, C_Val object or integer
     # Exception:
@@ -890,7 +890,7 @@ class AGOC(MacroOp):
                 raise ValueError("AGO %s encountered unexpected result: %s"
                     % (lineno,value))
             raise MacroError(invoke=True,\
-                msg="AGO computation requires arithmentic result: %s" % found)
+                msg="AGO computation requires arithmetic result: %s" % found)
 
         state.actr()    # Decrement ACTR and abort if exhausted
 
@@ -1132,7 +1132,7 @@ class SETx(MacroOp):
             self.setx(state,symid,set_val,n,debug=debug)
             ndx+=1   # Bump the subscript to the next index
 
-    # Lets the subclass actually store away a value from an evalutated expression
+    # Lets the subclass actually store away a value from an evaluated expression
     # with its type sensitive handling
     # Method Arguments:
     #   state    asmmacs.Invoker object of this macro
@@ -1140,7 +1140,7 @@ class SETx(MacroOp):
     #   result   Result of the operand expression's evaluation defining the value
     #   n        Operand number, starting at zero, of the value (for error reporting)
     # Exceptions:
-    #   MacroError excpetion if subclass can not set the calculated value
+    #   MacroError exception if subclass can not set the calculated value
     def setx(self,state,symid,result,n,debug=False):
         raise NotImplementedError("%s subclass %s must supply setx() method" \
             % (assembler.eloc(self,"setx",module=this_module),\
@@ -1163,7 +1163,7 @@ class SETA(SETx):
         self.process(state,debug=debug)   # Do the set(s)
         return (self.next,None)   # Execute next macro operation
 
-    # Validate arithmetic expression result and set an arithemtic symbol's or array
+    # Validate arithmetic expression result and set an arithmetic symbol's or array
     # element's value.
     def setx(self,state,symid,value,n,debug=False):
         if isinstance(value,int):
@@ -1179,14 +1179,14 @@ class SETA(SETx):
             v=value.sdterm(excp=False,debug=debug)
             if v is None:
                 raise MacroError(invoke=True,\
-                    msg="SETA operand %s requires arithmentic result, character "
+                    msg="SETA operand %s requires arithmetic result, character "
                         "value: %s" % (n+1,value))
             v=macsyms.A_Val(value=v)
         else:
             raise ValueError("[%s] SETA operand %s encountered unexpected "
                 "result: %s" % (self.lineno,n+1,value))
             raise MacroError(invoke=True,\
-                msg="SETA operand %s requires arithmentic result: %s" \
+                msg="SETA operand %s requires arithmetic result: %s" \
                     % (n+1,found))
 
         state.seta(symid,v)
@@ -1214,7 +1214,7 @@ class SETB(SETx):
             v=value
         elif isinstance(value,(str,macsyms.C_Val)):
             raise MacroError(invoke=True,\
-                msg='SETB operand %s requires logical or arithmentic result: "%s"'\
+                msg='SETB operand %s requires logical or arithmetic result: "%s"'\
                     % (n+1,value))
         else:
            raise ValueError(\
@@ -1357,10 +1357,10 @@ class Invoker(object):
         self._mhelp_40=0        # Dump SETC hex with
         self._mhelp_prefix=""   # Prefix used for all MHELP output of this invocation
 
-        # Swich to enable tracing of the macro invokation
+        # Switch to enable tracing of the macro invocation
         self.idebug=False       # This switch is driven by the invoked Macro object
 
-    # Intialize the macro's local variable symbols
+    # Initialize the macro's local variable symbols
     def __init_lcls(self):
         l=Mac_Symbols(self.case,unique=True)
 
@@ -1683,7 +1683,7 @@ class MacroBuilder(object):
         if state==0:
             return False
 
-        # Looking for prototype statmenet
+        # Looking for prototype statement
         if state==1:
             #if flds.comment or flds.empty or isinstance(stmt,asmstmts.StmtComment):
             if isinstance(stmt,asmstmts.StmtComment):
@@ -1719,11 +1719,11 @@ class MacroBuilder(object):
                 raise ae from None
             self.state=2
 
-        # Processing body statements (macro diretives and model statements)
+        # Processing body statements (macro directives and model statements)
         elif state==2:
             op=stmt.optn.oper
             try:
-                # Debuggging of macro directives may be controlled either by
+                # Debugging of macro directives may be controlled either by
                 # --oper or ATRACEON.  Model statements may only be debugged
                 # using MACRO with the DEBUG operand
                 stmt.Pass0(self.asm,macro=self,debug=ddebug)
@@ -1771,7 +1771,7 @@ class MacroBuilder(object):
     def flush(self):
         self.indefn=None             # Leaving macro definition mode
         self.ddebug=False            # Turn off definition debug switch
-        self.state=0                 # Change state to relfect this
+        self.state=0                 # Change state to reflect this
 
 
 class MacroLanguage(object):
@@ -1824,7 +1824,7 @@ class MacroLanguage(object):
         self.expanders=[]   # List of active expanders
 
         # Global variable symbol dictionaries: '&symbol' -> [A|B|C]Sym object
-        self.gbls=self.__init_globals()       # Initalize Global variable symbols
+        self.gbls=self.__init_globals()       # Initialize Global variable symbols
 
     # Returns the GlobalSymbols object with system variables initialized
     def __init_globals(self):
@@ -1981,7 +1981,7 @@ class MacroLanguage(object):
     # Returns:
     #   the Invoker object for the statement
     #   None if MHELP &SYSNDX value has been reached
-    # Excpetions:
+    # Exceptions:
     #   assembler.AssemblerError when MHELP &SYSNDX is reached.  Following this
     #   exception, only None will be returned.
     def macstmt(self,stmt,debug=False):
@@ -2034,7 +2034,7 @@ class MacroLanguage(object):
             print("%s mhelp_mask=%s" % (cls_str,bin(self.mhelp_mask)))
             print("%s mhelp_sup =%s" % (cls_str,self.mhelp_sup))
 
-    # Incrments and returns the new nesting level
+    # Increments and returns the new nesting level
     # The open code macro statements have a depth of 1.  Inner macro statements have
     # a nesting depth of 2 or more.
     def nest(self,exp):
@@ -2095,7 +2095,7 @@ class Mac_Symbols(object):
     # Returns:
     #   the created, or previously created if unique=False, A_Sym, B_Sym or C_Sym object
     # Exceptions:
-    #   MacroError  variable symbol already created if unqiue is being enforced.
+    #   MacroError  variable symbol already created if unique is being enforced.
     def __define(self,symbol,cls,parm=False,unique=False,ro=False):
         assert isinstance(symbol,macsyms.SymbolID),\
             "%s 'symbol' argument must be a macsyms.SymbolID object: %s" \
@@ -2317,7 +2317,7 @@ class Mac_Symbols(object):
     #   symbol A SymbolID object identifying the symbol's name and subscripting
     # Returns:
     #   an A_Val, B_Val or C_Val object
-    # Excpetions: the caller needs to catch and handle appropriately
+    # Exceptions: the caller needs to catch and handle appropriately
     #   MacroError if the variable is not defined, subscript our of range or
     #              the symbol is not of the requested type.
     def geta(self,symbol):
@@ -2356,7 +2356,7 @@ class Mac_Symbols(object):
     #   user       If True, recognize read-only status.  Default is True.  Specify
     #              False to set the value regardless of the read-only status.
     # Returns: None
-    # Excpetions: the caller needs to catch and handle appropriately
+    # Exceptions: the caller needs to catch and handle appropriately
     #   KeyError   if the variable symbol is not defined
     #   IndexError if the variable subscript is out of range
     #   MacroError if the variable is not defined as GBLA or LCLA

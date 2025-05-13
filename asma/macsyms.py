@@ -40,7 +40,7 @@ import asmtokens
 # attribute.  See asmmacs.MacroLanguage.__init__() method.
 pm=None
 
-# This excpetion is used when a user when symbolic variable related errors occur.
+# This exception is used when a user when symbolic variable related errors occur.
 #
 # Instance Arguments:  All are optional and default to None if not supplied
 #   msg     The nature of the error.
@@ -202,7 +202,7 @@ class Mac_Val(object):
             % (assembler.eloc(self,"update",module=this_module),\
                 self.__class__.__name__))
 
-    # This method returns the symbol's value when encoutered in a macro statement
+    # This method returns the symbol's value when encountered in a macro statement
     # Each subclass must provide this method
     def value(self):
         raise NotImplementedError("%s subclass %s must provide value() method" \
@@ -286,7 +286,7 @@ class Parm_Sym(Mac_Sym):
 #   value   A string that is the parameter's value or default
 #   onum    The operand number of this parameter in the macro statement
 #   ndx     A value by which the index is adjusted.  MAY BE OBSOLETE.
-#   minimum Minimum sublist subscript value for this parmater.  1 for macro
+#   minimum Minimum sublist subscript value for this parameter.  1 for macro
 #           statement positional or keyword parameters, and 0 for top &SYSLIST
 #           Parm_Val object.  Defaults to 1.
 #   syslist If this Parm_Val object is part of &SYSLIST, then this argument is
@@ -310,7 +310,7 @@ class Parm_Val(Mac_Val):
         # influences the minimum value of the sublit index.  For normal macro
         # parameters, regardless of whether the parameter is positional or a keyword
         # parameter, the minimum sublist index is 1, default of the minimum
-        # instatiation argument.
+        # instantiation argument.
         #
         # When dealing with &SYSLIST, it can have an index of 0.  &SYSLIST(0) refers
         # to the macro's label field content.
@@ -705,7 +705,7 @@ class MacroOperands(object):
             keyword="&%s" % self.keyword
             return MacroParm(operand.onum,value=self.value,keyword=keyword)
         else:
-            # No keyword present so its a positional parmaeter.  The entire
+            # No keyword present so its a positional parameter.  The entire
             # operand string is the value
             self.keyword=None
             self.value=text
@@ -754,7 +754,7 @@ class Mac_Sym_Array(Mac_Sym):
             return
         elif len(sub.indices)==0:
             raise SymbolError(msg="subscript required")
-        raise SymbolError(msg="one subsript required, found: %s" % len(sub.indices))
+        raise SymbolError(msg="one subscript required, found: %s" % len(sub.indices))
 
     def _ck_value(self,value):
         assert isinstance(value,self.value.entrycls),\
@@ -762,7 +762,7 @@ class Mac_Sym_Array(Mac_Sym):
                 % (assembler.eloc(self,"_ck_value",module=this_module),\
                     self.value.entrycls.__name__,value)
 
-    # Returns my value attibutes
+    # Returns my value attributes
     def getAttr(self,attr):
         return self.value.getAttr(attr)
 

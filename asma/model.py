@@ -43,14 +43,14 @@ import macsyms
 #
 #   - LField    label field                      asmline.Logline.fields() method
 #   - LField    operation field                  asmline.Logline.fields() method
-#   - LOperand  indivdual operand field operand  ASMStmt.parse_line(), sep=True
+#   - LOperand  individual operand field operand  ASMStmt.parse_line(), sep=True
 #
 # These objects form the basis for symbolic variable replacement and statement
 # generation.  Statement generation creates text strings as if they had been read
 # from a file using stream file format continuation conventions.
 #
 # For model statements coded with the normal statement format, what is expected
-# resutls in the generated physical input lines.
+# results in the generated physical input lines.
 #
 # For model statements coded with the alternate statement format, comments on
 # individual model statement lines are lost in the model statement.  All operands

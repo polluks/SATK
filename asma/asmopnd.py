@@ -16,7 +16,7 @@
 #     You should have received a copy of the GNU General Public License
 #     along with SATK.  If not, see <http://www.gnu.org/licenses/>.
 
-# This module tests a new ASMA instruction operand input parsing stategy.
+# This module tests a new ASMA instruction operand input parsing strategy.
 
 this_module="asmopnd.py"
 
@@ -119,7 +119,7 @@ class OperandLexer(lexer.Lexer):
         return self
 
 
-# This class recongizes expressions that make up a machine instruction operand.
+# This class recognizes expressions that make up a machine instruction operand.
 # The operand takes the form:
 #   primary_expression[(secondary_expression[,secondary_expression]...)]
 #
@@ -142,7 +142,7 @@ class OperandLexer(lexer.Lexer):
 #
 # The parsed operand results in a POperand object.  Its primary attribute is a
 # ASMExpr object containing the parsed primary expression.  Its secondary attribute 
-# is a list of ASMExpr objects, each corresponsing to a secondary expression.  The
+# is a list of ASMExpr objects, each corresponding to a secondary expression.  The
 # ASMExpr object contains a list of lexical tokens, mostly defined by the asmtokens
 # module.
 #
@@ -263,7 +263,7 @@ class OperandParser(asmbase.AsmFSMParser):
     # Method Arguments:
     #   stmt      The ASMStmt object accessing the literal
     #   opnd      The ASMOperand object containing the literal string
-    #   n         The operand index of thos operand
+    #   n         The operand index of this operand
     #   debug     Specify True to print debugging information.  Defaults to False.
     # Returns:
     #   The literal.Literal object of the literal
@@ -540,7 +540,7 @@ class OperandParser(asmbase.AsmFSMParser):
 
     def ACT_Start_C(self,value,state,trace=False):
         # ,
-        # Note: this is only valid when the first secondary expression is ommitted
+        # Note: this is only valid when the first secondary expression is omitted
         gs=self.scope()
         gs.expression_end()
         # Start the next secondary expression
@@ -573,7 +573,7 @@ class OperandParser(asmbase.AsmFSMParser):
 
     def ACT_Start_R(self,value,state,trace=False):
         # )
-        # Note: this only occurs when the second secondary expression is ommitted
+        # Note: this only occurs when the second secondary expression is omitted
         gs=self.scope()
         gs.expression_end()
         return "end"
@@ -592,7 +592,7 @@ class OperandParser(asmbase.AsmFSMParser):
         if gs.primary:
             self.ACT_Expected_LP_Term(value,state,trace=trace)
 
-        # For secondary is end of the expresion
+        # For secondary is end of the expression
         if gs.balanced_parens():
             gs.expression_end()
             return "init"
@@ -688,7 +688,7 @@ class OperandParser(asmbase.AsmFSMParser):
         raise assembler.AsmParserError(value,msg=msg)
 
     def ACT_Expected_LP_Term(self,value,state,trace=False):
-        self.ACT_Expected("label, self-defining term, currrent location or left "
+        self.ACT_Expected("label, self-defining term, current location or left "
             "parenthesis",value)
 
     def ACT_Expected_RP_Oper(self,value,state,trace=False):

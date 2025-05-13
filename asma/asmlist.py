@@ -32,7 +32,7 @@ import lnkbase             # Access address objects
 
 
 # This object helps in creation of assembly listing detail lines with potentially
-# multipl physical lines (when continuation is present), multiple lines of object
+# multiple physical lines (when continuation is present), multiple lines of object
 # code are required (when PRINT DATA is in use) and potentially multiple errors.
 class ListingLine(object):
     def __init__(self,loc=None,objcode=None,addr1=None,addr2=None,lineno=None,\
@@ -149,7 +149,7 @@ class AsmListing(Listing):
         self.mac_first=True     # Switch for first-time
 
         # Image map information
-        self.part3_first=False  # Flag to inidicate first detail line
+        self.part3_first=False  # Flag to indicate first detail line
         self.entry=None         # Image entry point, if defined
         self.map_list=[]        # List of Map objects in image sequence
         self.max_pos=0          # Maximum image position value
@@ -507,7 +507,7 @@ class AsmListing(Listing):
             else:
                 cls_str="%s %s.part1() -" % (this_module,self.__class__.__name__)
                 raise ValueError("%s statement %s encountered unexpected listing "
-                    "diretive: %s" % (cls_str,stmt.lineno,stmt.insn)) 
+                    "directive: %s" % (cls_str,stmt.lineno,stmt.insn)) 
 
     def part1_create_detail(self):
         ad=[]
@@ -629,7 +629,7 @@ class AsmListing(Listing):
                 addr1=None
                 addr2=None
 
-        # Determinte the STMT number column
+        # Determine the STMT number column
         lineno=stmt.lineno
 
         # Determine the statement type column: + for generated, space for open code
@@ -668,7 +668,7 @@ class AsmListing(Listing):
                 dtl=ListingLine(loc=loc,objcode=data,addr1=addr1,addr2=addr2,\
                     lineno=None,typ=stype,pline=pline)
             else:
-                # Midde physcial line
+                # Midde physical line
                 dtl=ListingLine(loc=None,objcode=None,addr1=None,addr2=None,\
                     lineno=None,typ=stype,pline=pline)
             dtlo.append(dtl)
@@ -1234,7 +1234,7 @@ class AsmListing(Listing):
         supbeg= m.supbeg * [None,]                # Do beginning suppressed bytes
         vals.extend(supbeg)
 
-        objbyt=self.barray[m.beg_ndx:m.end_ndx]   # Do unsupressed bytes
+        objbyt=self.barray[m.beg_ndx:m.end_ndx]   # Do unsuppressed bytes
         objlist=list(objbyt)
         vals.extend(objlist)
 

@@ -17,13 +17,13 @@
 #     along with SATK.  If not, see <http://www.gnu.org/licenses/>.
 
 # This module provides the interface between the assembler and all input processing
-# of logical lines.  Logical lines require lable and operation field recognition
+# of logical lines.  Logical lines require label and operation field recognition
 # early during input processing to determine how further to process the logical
 # line. Processing these fields result in the creation of an LField object.
 #
 # Operands have further processing requirements depending upon statement format
 # and the nature of the operands themselves.  Three different approaches to
-# operand field processing are possible.  The asmstmts.Stmt subclass associaed with
+# operand field processing are possible.  The asmstmts.Stmt subclass associated with
 # the operation determines how processing is to be done for each physical line
 # in the logical line.  Three class attributes influence the processing:
 #
@@ -107,7 +107,7 @@ class LField(asmbase.ASMString):
         self.symid=None      # macopnd.SymbolRef object for the field
 
         # Field content type
-        #  'B' -> A single sysmbolic variable without a subscript or an attribute
+        #  'B' -> A single symbolic variable without a subscript or an attribute
         #  'L' -> A normal label
         #  'M' -> A macro model statement label
         #  'S' -> A symbolic variable with
@@ -265,7 +265,7 @@ class LOperand(asmbase.ASMString):
         super().__init__(string,asmbase.ASMPLoc(source,ndx))
 
         self.onum=onum       # Operand number in the logical line
-        self.isLiteral=string[0]=="="    # Whther this operand is a literal
+        self.isLiteral=string[0]=="="    # Whether this operand is a literal
 
     def __str__(self):
         if self.amp:
@@ -344,7 +344,7 @@ class cfsm(fsm.FSM):
         # Parse specific attributes. Reset by start() method
         self.logline=None       # Current LogLine object being processed
         self.plines=[]          # Physical lines from the logical line
-        self.lines=0            # Number of phyiscal lines in logical line
+        self.lines=0            # Number of physical lines in logical line
         self.pndx=None          # Next pline index to be processed
         self.operands=[]        # Recognized operands in logical line
         self.altfmt=False       # Whether alternate statement format in use
@@ -360,7 +360,7 @@ class cfsm(fsm.FSM):
         self.source=None        # Start of operand physical line source
         self.new_line=False     # Triggers a new line being added to the operand
 
-        # Current phyiscal line attributes.  Set by line() method
+        # Current physical line attributes.  Set by line() method
         self.pline=None         # Current Physical line being processed
         self.text=None          # Current PhysLine.text string being processed
         self.cndx=None          # Index of next character in self.text
@@ -501,7 +501,7 @@ class cfsm(fsm.FSM):
         return False
 
     def new_operand(self):
-        self.opno=None        # Flush LOperand opbject
+        self.opno=None        # Flush LOperand object
         self.amp=False
         self.lparens=0
         self.rparens=0
@@ -513,7 +513,7 @@ class cfsm(fsm.FSM):
     #   logline    The logical line (LogLine) object whose operands are being
     #              separated
     #   attrs      The symbol attributes allowed for the operation.  A string
-    #              containing the allowed attributes.  The emty string implies
+    #              containing the allowed attributes.  The empty string implies
     #              all attributes (see asmtokens.ATTRS).  None implies no
     #              symbol or label attributes allowed.
     # Returns:
@@ -735,7 +735,7 @@ class LogLine(object):
         assert isinstance(pline,asminput.PhysLine),\
             "LogLine object pline argument not a asminput.PhysLine object: %s" % pline
 
-        self.plines=[pline,]     # Phyiscal lines on which the logical line is based
+        self.plines=[pline,]     # Physical lines on which the logical line is based
         # Make the input source of this logical line that of its first physical line
         self.source=pline.source
         # Generation level for the physical line

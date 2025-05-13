@@ -73,7 +73,7 @@ cpu s390x        # Generic z/Architecture CPU in z/Architecture Mode
     features s390x-gen-inst-ext       # February, 2008
     features s390x-move-opt-spec      # February, 2008
     features s390x-parsing-enh        # February, 2008
-    # SA22-7832-07, February, 2009, of PoO only instroduced the Fiber Channel
+    # SA22-7832-07, February, 2009, of PoO only introduced the Fiber Channel
     # Extensions.  No new instructions were introduced with this version.  The major
     # change was to input/output control blocks and the new TCW support.
     features s390x-cpu-counter        # August, 2010         STFLE:67
@@ -245,7 +245,7 @@ inst EDMK   DF   SSA            # EDIT AND MARK
 inst EFPC   B38C RRE1           # EXTRACT FPC
 inst EPAR   B226 RRE            # EXTRACT PRIMARY ADDRESS SPACE NUMBER
 inst EREG   B249 RRE            # EXTRACT STACKED REGISTERS
-inst ESAR   B227 RRE            # EXTRACT SECONARY ADDRESS SPACE NUMBER
+inst ESAR   B227 RRE            # EXTRACT SECONDARY ADDRESS SPACE NUMBER
 inst ESTA   B24A RRE            # EXTRACT STACKED STATE
 inst EX     44   RXA            # EXECUTE
 inst FIDBR  B35F RRFG           # LOAD FP INTEGER (LB)
@@ -897,7 +897,7 @@ iset s390x-base
 
 # ASN-AND-LX REUSE FACILITY (May, 2004)
 inst EPAIR  B99A RRE            # EXTRACT PRIMARY ASN AND INSTANCE
-inst ESAIR  B99B RRE            # EXTRACT SECONARY ASN AND INSTANCE
+inst ESAIR  B99B RRE            # EXTRACT SECONDARY ASN AND INSTANCE
 inst PTI    B99E RRE            # PROGRAM TRANSFER WITH INSTANCE
 inst SSAIR  B99F RRE            # SET SECONDARY ASN WITH INSTANCE
 
@@ -1341,7 +1341,7 @@ inst AGSI   EB7A SIY1           # ADD IMMEDIATE (64<8)
 inst ALGSI  EB7E SIY1           # ADD LOGICAL WITH SIGNED IMMEDIATE (64<8)
 inst ALSI   EB6E SIY1           # ADD LOGICAL WITH SIGNED IMMEDIATE (32<8)
 inst ASI    EB6A SIY1           # ADD IMMEDIATE (32<8)
-inst CGFRL  C6C  RILB           # COMPARE REALTIVE LONG (64<32)
+inst CGFRL  C6C  RILB           # COMPARE RELATIVE LONG (64<32)
 inst CGH    E334 RXYA           # COMPARE HALFWORD (64<16)
 inst CGHRL  C64  RILB           # COMPARE HALFWORD RELATIVE LONG (64<16)
 inst CGHSI  E558 SIL1           # COMPARE HALFWORD IMMEDIATE (64<16)
@@ -1356,7 +1356,7 @@ inst CHHSI  E554 SIL1           # COMPARE HALFWORD IMMEDIATE (16)
 inst CHRL   C65  RILB           # COMPARE HALFWORD RELATIVE LONG (32<16)
 inst CHSI   E55C SIL1           # COMPARE HALFWORD IMMEDIATE (32<16)
 inst CIB    ECFE RIS            # COMPARE IMMEDIATE AND BRANCH (32<8)
-inst CIJ    EC7E RIEC           # COMPARE IMMEIDATE AND BRANCH RELATIVE (32<8)
+inst CIJ    EC7E RIEC           # COMPARE IMMEDIATE AND BRANCH RELATIVE (32<8)
 inst CIT    EC72 RIEA           # COMPARE IMMEDIATE AND TRAP (32<16)
 inst CLFHSI E55D SIL            # COMPARE LOGICAL IMMEDIATE (32<16)
 inst CLFIT  EC73 RIEA1          # COMPARE LOGICAL IMMEDIATE AND TRAP (32<16)
@@ -1662,7 +1662,7 @@ iset s390x-long-distance
 inst KIMD   B93E RRE            # COMPUTE INTERMEDIATE MESSAGE DIGEST
 inst KLMD   B93F RRE            # COMPUTE LAST MESSAGE DIGEST
 inst KM     B92E RRE            # CIPHER MESSAGE
-inst KMAC   B91E RRE            # COMPUTE MESSAGE AUTHENTIFICATION CODE
+inst KMAC   B91E RRE            # COMPUTE MESSAGE AUTHENTICATION CODE
 inst KMC    B92F RRE            # CIPHER MESSAGE WITH CHAINING
 
 # See IBM z/Architecture Principles of Operation, SA22-7832-02, June, 2003
@@ -1715,7 +1715,7 @@ iset s390x-msa-8
 
 
 # MESSAGE SECURITY ASSIST 8 FACILITY (May, 2022)
-# M9 instuction
+# M9 instruction
 inst KDSA   B93A RRE            # COMPUTE DIGITAL SIGNATURE AUTHENTICATION
 
 # See IBM z/Architecture Principles of Operation, SA22-7832-13, May, 2022
@@ -2143,7 +2143,7 @@ iset s390x-vector-packed-1
 inst VCFPL   E7C1 VRRA           # VECTOR FP CONVERT FROM LOGICAL (rename VCDGL)
 inst VCFPS   E7C3 VRRA           # VECTOR FP CONVERT FROM FIXED (rename VCDG)
 inst VCLFP   E7C0 VRRA           # VECTOR FP CONVERT TO LOGICAL (rename VCLDG)
-inst VCSFP   E7C2 VRRA           # VECTOR FP CONVER TO FIXED (rename VCDG)
+inst VCSFP   E7C2 VRRA           # VECTOR FP CONVERT TO FIXED (rename VCDG)
 inst VLBR    E606 VRX            # VECTOR LOAD ELEMENT
 inst VLBRREP E605 VRX            # VECTOR LOAD BYTE REVERSED ELEMENT AND REPLICATE
 inst VLEBRF  E603 VRX            # VECTOR LOAD BYTE REVERSED ELEMENT (32)
@@ -2187,7 +2187,7 @@ iset s390x-enhanced-sort
 
 
 # NEURAL-NETWORK-PROCESSING-ASSIST FACILITY
-inst NNPA   B93B RRE1           # NEURAL NETOWRK PROCESSING ASSIST
+inst NNPA   B93B RRE1           # NEURAL NETWORK PROCESSING ASSIST
 inst VCFN   E65D VRRA4          # VECTOR FP CONVERT FROM NNP
 inst VCLFNH E656 VRRA4          # VECTOR FP CONVERT AND LENGTHEN FROM NNP HIGH
 inst VCLFNL E65E VRRA4          # VECTOR FP CONVERT AND LENGTHEN FROM NNP LOW

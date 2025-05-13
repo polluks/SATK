@@ -23,8 +23,8 @@
 this_module="%s.py" % __name__
 
 # SATK imports:
-import assembler     # Access the global assember module
-import objlib        # Access object moodule read/write library
+import assembler     # Access the global assembler module
+import objlib        # Access object module read/write library
 
 
 # This function returns a standard identification of an error's location.
@@ -75,15 +75,15 @@ def eloc(clso,method_name,module=None):
 # assigned to it using an Address object.  If the content has an accompanying label
 # in the symbol table, the actual Address object is used to provide the symbol's
 # value.  During the address binding process, the address is converted from a
-# relative address into an absolute addres.  Because the very same object is used in
+# relative address into an absolute address.  Because the very same object is used in
 # the symbol table, the change in the content address is automatically seen in the
 # symbol table.
 #
-# The Address class and its subclasses are designed to pariticipate in Python
-# arithmetic operations using overloading methods.  This allows them to paricipate
+# The Address class and its subclasses are designed to participate in Python
+# arithmetic operations using overloading methods.  This allows them to participate
 # directly in expression evaluation as would a standard Python integer.
 
-# This exception is raised when problems arise during address arithemtic.  It
+# This exception is raised when problems arise during address arithmetic.  It
 # should be caught and an AssemblerError with relevant context information should
 # then be raised.
 class AddrArithError(Exception):
@@ -91,7 +91,7 @@ class AddrArithError(Exception):
         self.msg=msg
         super().__init__(msg)
 
-# This exception is raised when two positions participate in an arithemetic
+# This exception is raised when two positions participate in an arithmetic
 # operation but are allocated under different Allocation objects.
 class PosArithError(Exception):
     def __init__(self,msg=None):
@@ -176,7 +176,7 @@ class Address(object):
 
         # Absolute address corresponding corresponding to relative address
         self.address=address    # May not be a negative value
-        self.length=length      # This attibute is used for implied length values
+        self.length=length      # This attribute is used for implied length values
 
         # For debugging purposes
         #self.r=super().__repr__()
@@ -239,7 +239,7 @@ class Address(object):
     #   0 == integer
     #   1 == dummy section displacement (treat like integer with other addresses)
     #   2 == relative address
-    #   3 == absoulute address
+    #   3 == absolute address
     #   4 == external address
     #   5 == anything else
     def _type(self,other):
@@ -698,7 +698,7 @@ class Relo(object):
         assert isinstance(pname,str),\
             "%s 'pname' argument must be a string: %s" % (cls_str,pname)
         assert isinstance(rname,str),\
-            "%s 'rname' arguement must be a string: %s" % (cls_str,rname)
+            "%s 'rname' argument must be a string: %s" % (cls_str,rname)
 
         try:
             cls=Relo.types[rlditem.typ]
@@ -798,10 +798,10 @@ Relo.types={ARelo.typ:ARelo,VRelo.typ:VRelo,QRelo.typ:QRelo,\
 #  *---------------------------+
 #
 
-# These core objects are abstractions of the proceses involved in object module
+# These core objects are abstractions of the processes involved in object module
 # creation.  Object content must be placed within some contiguous area.  The
 # positioning of data within the contiguous area is managed by the Allocation
-# object.  It creates Postion objects that provide where content will be placed.
+# object.  It creates Position objects that provide where content will be placed.
 #
 # The actual content is separate from the Allocation in which it will placed and
 # its positioning.  The content is represented by a Text object.  The text object
@@ -1024,7 +1024,7 @@ class Position(object):
     def __sub__(self,other):
         if isinstance(other,Position):
             if self.cntr!=other.cntr:
-                raise PosArithError(msg="can not substract positions in different "
+                raise PosArithError(msg="can not subtract positions in different "
                     "containers: %s-%s" % (self,other))
 
             return self.disp-other.disp
@@ -1089,7 +1089,7 @@ class Position(object):
         return self.cntr==other.cntr
 
 
-# This object represents text positioned within an allcoation.  It is the foundation
+# This object represents text positioned within an allocation.  It is the foundation
 # for creation of binary content.
 #
 # The object depends upon three pieces of information that may be separately
@@ -1307,7 +1307,7 @@ class Text(Position):
         mypos=self._pos
         pos=text._pos
         if not mypos.together(pos):
-            # Postions in different allocations do not overlap
+            # Positions in different allocations do not overlap
             return 0
         mystart=mypos.disp
         start=pos.disp
@@ -1326,7 +1326,7 @@ class Text(Position):
     # Method Argument:
     #   length   The length of the object.
     def set_len(self,length):
-        assert isinstance(length,int) and lenght>=1,\
+        assert isinstance(length,int) and length>=1,\
             "%s 'length' argument must be an integer greater than 0: %s" \
                 % (eloc(self,"set_len"),length)
         assert self._text is not None and len(self._text)==length,\
@@ -1364,7 +1364,7 @@ class Text(Position):
 
     def validate(self):
         if self._invalid():
-            raise ValueError("%s %s imcomplete: %s" \
+            raise ValueError("%s %s incomplete: %s" \
                 % (eloc(self,"validate"),self.__class__.__name__,self))
 
 
@@ -1706,7 +1706,7 @@ class LNKModule(LNKContent):
 #   address   The absolute address at which the region starts
 class LNKRegion(LNKContent):
     def __init__(self,name,address):
-        assert isinstance(addres,AbsAddr),\
+        assert isinstance(address,AbsAddr),\
             "%s 'address' argument must be an AbsAddr object: %s" \
                 % (eloc(self,"__init__"),address)
         super().__init__(name,LNKSection,track=True,unnamed=True)

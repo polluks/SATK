@@ -81,7 +81,7 @@ class CSLA(lexer.CSLA):
     # Debug manager is not used for CSLA debug settings.  They are manually
     # controlled by the call to individual context definitions.
     # Context token type match debugging is enabled by setting the tdebug argument
-    # to True in the individial calls to the context types
+    # to True in the individual calls to the context types
     def init(self):
         # Debug manager is not used for CSLA debug settings.  They are manually
         # controlled by the call to individual context definitions.
@@ -207,7 +207,7 @@ class CSLA(lexer.CSLA):
         types=[LPAREN,COMMA,EOO]
         self.type(c,types,debug=tdebug)
 
-    # DC/DS Explict Length Modifier started
+    # DC/DS Explicit Length Modifier started
     def init_len_beg(self,ldebug=False,tdebug=False):
         c="lenbeg"
         self.ctx(c,debug=ldebug)
@@ -386,7 +386,7 @@ class AddressParser(asmbase.AsmFSMParser):
         self.ACT_Expected("plus/minus address adjustment",value)
 
     def ACT_ExpectedExpr(self,value,state,trace=False):
-        self.ACT_Expected("arithmetic operation or valid arithemtic operand",value)
+        self.ACT_Expected("arithmetic operation or valid arithmetic operand",value)
 
     def ACT_ExpectedLabel(self,value,state,trace=False):
         self.ACT_Expected("initial address label",value)
@@ -420,11 +420,11 @@ class AddrScope(asmbase.AsmFSMScope):
         super().init()
         self.parens=0          # Used to check for balanced parenthesis
 
-        # These two attributes are relavant for a potential Location object
+        # These two attributes are relevant for a potential Location object
         # Note: ultimately only Location objects might result from address arithmetic
         self.anchor=None
         self.adjust=[]
-        # This attribute is relavant for an address calculation.
+        # This attribute is relevant for an address calculation.
         self.lextoks=[]
 
 
@@ -564,7 +564,7 @@ class MNOTEParser(asmbase.AsmFSMParser):
         self.ACT_Expected("message string",value)
 
     def ACT_ExpectedSeverity(self,value,state,trace=False):
-        self.ACT_Expected("serverity expression, comma, or message",value)
+        self.ACT_Expected("severity expression, comma, or message",value)
 
     def ACT_LPAREN(self,value,state,trace=False):
         gs=self.scope()
@@ -609,9 +609,9 @@ class MNOTEScope(asmbase.AsmFSMScope):
         self.lextoks=[]
         # StringToken of message text
         self.message=None
-        # Set to True if severity and comma omitted, or serverity is '*'
+        # Set to True if severity and comma omitted, or severity is '*'
         self.comment=False
-        # Set to 1 if severity is ommitted, but initial comma is present
+        # Set to 1 if severity is omitted, but initial comma is present
         self.severity=None
 
 
@@ -690,7 +690,7 @@ class START_Parser(asmbase.AsmCtxParser):
         self.ACT_Expected("end of operands or end of statement",value)
 
     def ACT_ExpectedExpr(self,value,state,trace=False):
-        self.ACT_Expected("arithmetic operation or valid arithemtic operand",value)
+        self.ACT_Expected("arithmetic operation or valid arithmetic operand",value)
 
     def ACT_ExpectedRegion(self,value,state,trace=False):
         self.ACT_Expected("region name",value)
@@ -879,7 +879,7 @@ class ParserMgr(object):
     # Parse a string of constants.
     # Method Arguments:
     #   stmt    Statement containing the string of constants.  This can be a
-    #           statment containing a literal
+    #           statement containing a literal
     #   string  The string of constant operands
     # Returns:
     #   the asmdcds.DCDS_Scope() object from that parse

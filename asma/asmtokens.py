@@ -269,7 +269,7 @@ class PLitLabelAttr_D(PLitLabelAttr):
         return 1         # Return 'True' or 1 for defined label
 
 
-# This class supports lable O attribute which tests for operation type
+# This class supports label O attribute which tests for operation type
 class PLitLabelAttr_O(PLitLabelAttr):
     def __init__(self,token):
         super().__init__(token)
@@ -278,7 +278,7 @@ class PLitLabelAttr_O(PLitLabelAttr):
         return external._getAttr_O(self.label.upper())
 
 
-# This class supports lable O attribute which tests for operation type but treats
+# This class supports label O attribute which tests for operation type but treats
 # character result as a character self-defining term.
 class PLitLabelAttr_OChr(PLitLabelAttr):
     def __init__(self,token):
@@ -303,7 +303,7 @@ class PLitLabelAttrChr(PLitLabelAttr):
 # This pratt3 PLit object is used for all self defining terms.  It will evaluate
 # the term's value when instantiated as opposed to when referenced during evaluation.
 # This latter behavior is used by PLitTID and PLitSmart.  This eliminates the need
-# to do the convertion evertime the expression is evaluated in a macro invocation.
+# to do the conversion evertime the expression is evaluated in a macro invocation.
 class PLitSD(pratt3.PLit):
     def __init__(self,token):
         super().__init__(token)
@@ -335,7 +335,7 @@ class PLitSym(pratt3.PLit):
     # Returns:
     #   the expression type sensitive interpretation of the referenced
     #   A_Val, B_Val or C_Val object from the symbol dictionary
-    # Excpetions:
+    # Exceptions:
     #   Various MacroError exceptions may be triggered.  The PParser does not catch
     #   them, but they are caught by the current Invoker object in its run() method.
     def value(self,external=None,debug=False,trace=False):
@@ -626,7 +626,7 @@ class CharacterExpr(pratt3.PExpr):
         name="%s %s" % (desc,lineno)
         super().__init__(desc=name,tokens=tokens)
         self.name=desc     # A description of this expression
-        self.toks=[]       # List of PToken ojbects defining the expression
+        self.toks=[]       # List of PToken objects defining the expression
         # Whether result should be a string or a macro C_Val object
         self.string=string
 
@@ -705,9 +705,9 @@ class LexicalToken(lexer.Token):
     def ctoken(self):
         return self.ptoken()
 
-    # This method generates a pratt3 module PToken opject for assembler arithmetic
+    # This method generates a pratt3 module PToken object for assembler arithmetic
     # expressions.  For lexical tokens that must be converted into a PToken object
-    # that participates in expression  evalutations this method returns the object.
+    # that participates in expression  evaluations this method returns the object.
     # Lexical tokens that do not  participate in expression evaluations do not
     # require this method.
     def ptoken(self,*args,**kwds):
@@ -916,7 +916,7 @@ class AmpType(lexer.Type):
 
 # +-*/   - Recognizes arithmetic expression operators
 class AOperToken(LexicalToken):
-    # converts an arithmetic operator as a string into a pratt3 module Operator classs
+    # converts an arithmetic operator as a string into a pratt3 module Operator class
     ptokens={"+":pratt3.PAdd,
              "-":pratt3.PSub,
              "*":pratt3.PMul,
@@ -943,7 +943,7 @@ class AOperToken(LexicalToken):
         self.binary=True
         self.unary=self.string in "+-"
 
-    # Returns a pratt3 PToken object with myself as the sourc
+    # Returns a pratt3 PToken object with myself as the source
     def ptoken(self):
         if self.iscur:
             assert not self.stmt is None,\
@@ -1086,7 +1086,7 @@ class DCDS_Dec_Token(LexicalToken):
         return digits
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token attributes
+        # Let super class initialize the lexical token attributes
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
         groups=self.groups()
@@ -1469,7 +1469,7 @@ class LabelToken(LexicalToken):
         self.label=None   # Label being referenced
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token
+        # Let super class initialize the lexical token
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
         self.label=self.string
@@ -1542,7 +1542,7 @@ class LabelAttrToken(LexicalToken):
         return cls(self)
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token
+        # Let super class initialize the lexical token
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
         mogrps=self.groups()
@@ -1608,7 +1608,7 @@ class LParenType(lexer.Type):
         super().__init__("LPAREN","[\(]",tcls=LParenToken,debug=debug)
 
 
-# LABEL&SYM  - Recgonizes an assembler label with a final symbollic variable.
+# LABEL&SYM  - Recgonizes an assembler label with a final symbolic variable.
 # This is used exclusively by the Fields Parser to allow this construct to be
 # recognized in macro body statements.
 class MacLabelToken(LexicalToken):
@@ -1647,7 +1647,7 @@ class NotType(lexer.Type):
         super().__init__("NOT",NotType.pattern,tcls=NotToken,mo=True,debug=debug)
 
 
-# .      - Recoginzes a single period ending a complex term
+# .      - Recognizes a single period ending a complex term
 class PeriodToken(LexicalToken):
     def __init__(self):
         super().__init__()
@@ -1786,7 +1786,7 @@ class SeqType(lexer.Type):
      def __init__(self,debug=False):
         super().__init__("SEQSYM",seqsym,tcls=SeqToken,debug=debug)
 
-# This token is extended to allow recognition of two adjacent singe quotes to be
+# This token is extended to allow recognition of two adjacent single quotes to be
 # recognized as a single quote in the internal representation of a string.  This
 # token requires assistance by the parser to successfully handle this case.  The way
 # this works is not intuitive which is why this lengthy explanation is provided.
@@ -1840,7 +1840,7 @@ class StringToken(LexicalToken):
 
     def atoken(self):
         raise NotImplementedError(\
-            "%s TID:%s must not be recognized in arithemetic expressions" \
+            "%s TID:%s must not be recognized in arithmetic expressions" \
                 % (assembler.eloc(self,"atoken",module=this_module),self.tid))
 
     def btoken(self):
@@ -1891,7 +1891,7 @@ class StringType(lexer.Type):
         super().__init__("STRING",pattern,tcls=StringToken,debug=debug)
 
 
-# DC, DS - character type nomimal value recognizer.
+# DC, DS - character type nominal value recognizer.
 class DCDS_String_Token(StringToken):
     def __init__(self):
         super().__init__()
@@ -1919,7 +1919,7 @@ class SymToken(LexicalToken):
         self.symname=None
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token
+        # Let super class initialize the lexical token
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
         # Extract results from matched string
@@ -1949,7 +1949,7 @@ class SymAttrToken(LexicalToken):
         #return PLitLabelAttr(self)
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token
+        # Let super class initialize the lexical token
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
         # Extract results from match object
@@ -2019,7 +2019,7 @@ class SymDeclToken(LexicalToken):
         self.symname=None
 
     def init(self,tid,string,beg,end,line=0,linepos=0,eols=0,ignore=False,mo=None):
-        # Let super classs initalize the lexical token
+        # Let super class initialize the lexical token
         super().init(tid,string,beg,end,line=line,linepos=linepos,eols=eols,\
                      ignore=ignore,mo=mo)
 

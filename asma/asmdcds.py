@@ -182,7 +182,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
         self.types[cnst.typ]=cnst
 
     # Initialize all of the constant types
-    # Note: these must be consistant with the pattern defined by the
+    # Note: these must be consistent with the pattern defined by the
     # class DCDS_Types_Type.
     def __init_constants(self):
         c=DCDS_Constant   # This is just a typing convenience.
@@ -320,7 +320,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
         lengthq.error(self.ACT_Expected_Len)
         self.state(lengthq)
 
-        # Recognize the length modifers value (decimal SD term or expression)
+        # Recognize the length modifiers value (decimal SD term or expression)
         length=fsmparser.PState("length")
         length.action([SDDEC,],self.ACT_Len_SD_Found)     # Length SD found
         length.action([LPAREN,],self.ACT_Len_Expr_Start)  # Length expression found
@@ -350,7 +350,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
         nomq.error(self.ACT_Expected_Quoted_Values)
         self.state(nomq)
 
-        # Determine whether another operand is present or the DC/DS diretive is done
+        # Determine whether another operand is present or the DC/DS directive is done
         opers=fsmparser.PState("opers")
         opers.action([COMMA,],self.ACT_Operand_Next)
         opers.action([EOO,EOS],self.ACT_DCDS_Done)
@@ -388,7 +388,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
 
         # Type B - Recognizes whether another nominal value or the operand is done
         binnext=fsmparser.PState("binnext")
-        binnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes conext
+        binnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes context
         binnext.action([COMMA,],self.ACT_Binary_Another)
         binnext.error(self.ACT_Expected_More_Values)
         self.state(binnext)
@@ -442,7 +442,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
 
         # Type X - Recognizes whether another nominal value or the operand is done
         hexnext=fsmparser.PState("hexnext")
-        hexnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes conext
+        hexnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes context
         hexnext.action([COMMA,],self.ACT_Hexadecimal_Another)
         hexnext.error(self.ACT_Expected_More_Values)
         self.state(hexnext)
@@ -455,7 +455,7 @@ class DCDS_Parser(asmbase.AsmCtxParser):
 
         # Types D, F, FD, H - Recognizes whether another nominal value or done.
         numnext=fsmparser.PState("numnext")
-        numnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes conext
+        numnext.action([DCQUOTE,],self.ACT_Operand_Done)      # changes context
         numnext.action([COMMA,],self.ACT_Fixed_Point_Another)
         numnext.error(self.ACT_Expected_More_Values)
         self.state(numnext)
@@ -879,12 +879,12 @@ class DCDS_Operand(asmbase.AsmFSMScope):
         self._len=None      # Explicit length expression object
         self.values=[]      # asmdcds.Nominal objects, one per each value
         self.opnum=None     # Operand number of this operand in the statement
-        self.unique=False   # Whether this constand operand is unique
+        self.unique=False   # Whether this constant operand is unique
 
         # Pass1 results
         self.dup=1          # The duplication factor
         self.act_len=1      # Actual length
-        self.act_algn=0     # Actual alignement
+        self.act_algn=0     # Actual alignment
         self.ds_stg=None    # asmdcds.Storage object if this is a DS operand
         self.T="U"          # Type attribute of operand
         self.S=0            # Scale attribute of operand
@@ -935,7 +935,7 @@ class DCDS_Operand(asmbase.AsmFSMScope):
     def length(self):
         return self.act_len
 
-    # Add a lexical token or expresion list to the values.  Address constants will
+    # Add a lexical token or expression list to the values.  Address constants will
     # have an expression.  All other types will have a lexical token
     def nominal(self,ltok):
         self._values.append(ltok)
@@ -993,14 +993,14 @@ class DCDS_Operand(asmbase.AsmFSMScope):
                     msg="operand %s nominal %s %s" % (n,vn+1,ape.msg)) from None
             self.values.append(nom)
 
-        # For a DS operand without a nominal value, create the pseudo nomimal value
+        # For a DS operand without a nominal value, create the pseudo nominal value
         if not dc and len(self.values)==0:
             self.values.append(Storage(self.nomcls))
 
     # During Pass1 duplication and length values are calculated
     # And nominal values unrolled so addresses and length can be applied.
     #   3. Calculate duplication factor, if provided.  Must not be negative
-    #   4. Calculate explict length modifier.  Must not be negative and must be
+    #   4. Calculate explicit length modifier.  Must not be negative and must be
     #      valid for the constant type.
     def Pass1(self,stmt,asm,debug=False,trace=False):
         parsers=asm.PM
@@ -1117,7 +1117,7 @@ class DCDS_Operand(asmbase.AsmFSMScope):
 
 # This is the base class describing a nominal values.  This class ultimately creates
 # assembled binary data for constant nominal values.  It also contains the
-# information related to constant length and alingment for address assignment but
+# information related to constant length and alignment for address assignment but
 # does not itself perform the assignments.  These objects only exist for DC directive
 # operands.  DS directives do not utilize this object.
 #
@@ -1207,7 +1207,7 @@ class Nominal(object):
             % (assembler.eloc(self,"build",module=this_module),\
                 self.__class__.__name__))
 
-    # This methd allows nominal specific checks for explicit lengths.  Most cases
+    # This method allows nominal specific checks for explicit lengths.  Most cases
     # the maximum length check using the class attribute max_len is sufficient.
     # Nominal values requiring additional checks must override this method.
     #
@@ -1247,7 +1247,7 @@ class Nominal(object):
         return self._length
 
     # Update the nominal value with the constant operand's explicit length.
-    # This method is only called when a valid explict length has been provided for
+    # This method is only called when a valid explicit length has been provided for
     # the constant's nominal values.  All subclasses use this method.
     def Pass1(self,explen,T="U"):
         #print('%s T="%s"' % (assembler.eloc(self,"Pass1",module=this_module),T))
@@ -1440,7 +1440,7 @@ class Storage(Nominal):
         self.typcls=typcls
         # Assume alignment here.  But it might change if there is a length
         self.T=typcls.atyp
-        self.S=0     # When no nomimal value is supplied
+        self.S=0     # When no nominal value is supplied
         self.I=0     # When no nominal value is supplied
 
     def __str__(self):
@@ -1470,7 +1470,7 @@ class TwosCompBin(Nominal):
         length,align=self.__class__.attr
         super().__init__(ltok,length=length,alignment=align,signed=True)
 
-        # This attribute represents an intermeidate form between a lexical token
+        # This attribute represents an intermediate form between a lexical token
         # and the assembled value
         self.ivalue=FixedPoint(ltok.sign(),ltok.digits(),ltok.linepos)
 
@@ -1742,7 +1742,7 @@ class ADCON(object):
 
 
 # This object abstracts binary values.  It is derived from a lexitcal token but
-# ceases to be conntected to it.  It assumes that the lexical token's type regular
+# ceases to be connected to it.  It assumes that the lexical token's type regular
 # expression has done its job and only valid characters are present
 class Bits(object):
     def __init__(self,digits,attr,linepos):
@@ -1945,7 +1945,7 @@ class SCON(object):
     mask={12:(0xFFF,2),20:(0xFFFFF,3)}
     def __init__(self,expr,size=12):
         self.expr=expr      # Address expression from which constant is derived
-        self.size=size      # Size of the constand in bits
+        self.size=size      # Size of the constant in bits
         self.mask=None      # Displacement mask as an integer
         self.length=None    # Required constant length
         try:

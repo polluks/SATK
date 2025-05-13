@@ -44,7 +44,7 @@ class LiteralPool(asmbase.ASMSymTable):
         super().__init__(assembler.Literal,"TtSsIiLl",wo=True,case=True)
         self._align=0        # Required alignment of the pool
         self.literals={}     # Dictionary of shared literals identified by its string
-        self.unique=[]       # List of unshared unqiue literal
+        self.unique=[]       # List of unshared unique literal
         self.ltorg=None      # The asmstmts.LTORG object creating this pool
 
         # Literal groups by sequence in which they are created
@@ -100,7 +100,7 @@ class LiteralPool(asmbase.ASMSymTable):
                 self._align= max(self._align,grp.size)
                 lits.extend(grp.literals)
         self.pool_list=lits   # Save the list of literals for LTORG
-        self.ltorg=line       # Remeber the line number that created me
+        self.ltorg=line       # Remember the line number that created me
 
     # Provide a formatted display of the literal pool
     # Method Arguments:
@@ -245,7 +245,7 @@ class LiteralPoolMgr(object):
         self.pool_ndx=None   # Current pool index
         self.pool_new()      # Create the initial literal pool
 
-    # Fetchs from the current literal pool the Literal object for the presented 
+    # Fetches from the current literal pool the Literal object for the presented 
     # literal string
     # Method Argument:
     #   lit_str   The string that is the literal including its starting '=' sign

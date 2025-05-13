@@ -36,7 +36,7 @@
 # subclassing classes provided here for additional handling of input data (the
 # assembler).
 #
-# Raw lines are concerned with indentification of active content destined for a 
+# Raw lines are concerned with identification of active content destined for a 
 # logical line:
 #  - variable length content of the text after any line termination characters have
 #    have been removed and spaces at the end of the line are removed
@@ -47,7 +47,7 @@
 # For the purposes of continuation detection, two strategies are employed:
 #  - the 'legacy' use of a non-blank character in column 72 if present, and,
 #  - the 'stream' approach that looks for the presence of a final character signaling
-#    contination.
+#    continuation.
 #
 # Logical line creation is concerned with the extraction of the active input content
 # from one or more raw lines.  How raw input becomes a logical line is dependent upon
@@ -245,7 +245,7 @@ class LegacyRaw(Raw):
         self.empty=len(content.rstrip())==0
         self.length=len(card)
 
-# Raw input from a stream type file without fixed bounadaries
+# Raw input from a stream type file without fixed boundaries
 class StreamRaw(Raw):
     def __init__(self,card,lineno,source=None,stream=None,size=80):
         super().__init__(card,lineno,source=source,stream=stream,maxsize=size)

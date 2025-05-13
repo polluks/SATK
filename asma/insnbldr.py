@@ -304,7 +304,7 @@ class FieldFilters:
 
 
 # This class is where the results of the assembler are merged with the MSL database
-# format information of a given instruction in preperation for generation of the
+# format information of a given instruction in preparation for generation of the
 # machine instruction itself.
 class AOper(object):
 
@@ -315,7 +315,7 @@ class AOper(object):
         self.soper=soper            # msldb.soper object
 
         # Dictionary of fixed content for this field from inst statement
-        # fixed paramater field (hex value)
+        # fixed parameter field (hex value)
         self.fixed=fixed
 
         # Dictionary of field filter applied to this field from inst statement
@@ -415,7 +415,7 @@ class AOper(object):
 #    name      name of the field
 #    size      size of the field in bits
 #    start     starting bit number of field within the structure
-#    signed    Specify True if the value is treated as singed, False otherwise.
+#    signed    Specify True if the value is treated as signed, False otherwise.
 #              Default is False (unsigned).
 #    filter_name  String name of filter being applied to this field
 class Field(object):

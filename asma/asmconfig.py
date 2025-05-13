@@ -38,7 +38,7 @@ class asma(config.Tool):
 """Directory search order environment variables (upper case) or config options (lower case):
     ASMPATH  Locates the initial source file and COPY directive files.
     MACLIB   Locates macro library definitions.
-    MSLPATH  Loactes Machine Specification Language files.  Defaults to asma/msl.
+    MSLPATH  Locates Machine Specification Language files.  Defaults to asma/msl.
     CDPGPATH Locates user supplied code page definitions.
 """
 
@@ -48,7 +48,7 @@ class asma(config.Tool):
     def tool_spec(self):
         prog="%s.py" % self.name
         
-        # Return to full usage when epilog not shown whithout help
+        # Return to full usage when epilog not shown without help
         # Seems to be an error with Python 3.4.1
         #epilog="%s\n%s\n%s" % (asma.variables,config.CINFO.cinfo_options(),copyright)
         epilog=copyright
@@ -115,7 +115,7 @@ class asma(config.Tool):
         cfg.arg(config.Option_SV("gldipl",short="g",full="gldipl",\
             metavar="FILEPATH",\
             help="identifies the location of the list directed IPL file. All related "
-                 "files are written to the same diretory. If omitted, no files are "
+                 "files are written to the same directory. If omitted, no files are "
                  "created.",
             cl=True,cfg=True))
 

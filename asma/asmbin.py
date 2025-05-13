@@ -82,13 +82,13 @@ class AsmBinary(object):
             if len(barray)==0:         # If data is actually of zero length, ignore it
                 continue
 
-            # Found some actual data that could be contigous with other data
+            # Found some actual data that could be contiguous with other data
             addr=loc.address
             max_addr=max(max_addr,addr)   # Save maximum address
             if current is None:
                 current=Contig(addr)
             if current.add(addr,barray):
-                # True means it _was_ contigous so keep looking for more
+                # True means it _was_ contiguous so keep looking for more
                 continue
             # False means it was _not_ contiguous.  Add what we have to complete list
             contig_list.append(current)
@@ -100,19 +100,19 @@ class AsmBinary(object):
 
         # Done of all of the contiguous areas have been added to the list.
         if current is not None:
-            # Add final contigous area to the list
+            # Add final contiguous area to the list
             contig_list.append(current)
 
         self.contig=contig_list
 
-    # Creates STORE comamnds:  STORE R S hexloc data
+    # Creates STORE commands:  STORE R S hexloc data
     def __store_commands(self,asm,cp=False):
         if cp:
             cpcmd="CP "
         else:
             cpcmd=""
 
-        self.__find_contig(asm)   # Locate the chunks of contigous data.
+        self.__find_contig(asm)   # Locate the chunks of contiguous data.
         chunks=[]
         for c in self.contig:
             chunks.extend(c.chunks(16))  # maximum of 16 bytes stored
@@ -136,7 +136,7 @@ class AsmBinary(object):
 
     # Return a object deck for loading assembled content from statements.
     def deck(self,asm):
-        self.__find_contig(asm)   # Locate the chunks of contigous data.
+        self.__find_contig(asm)   # Locate the chunks of contiguous data.
 
         if self.max_addr>0xFFFFFF:
             print("addresses exceed supported object deck maximum (0xFFFFFF): 0x%X "
@@ -225,7 +225,7 @@ class AsmBinary(object):
 
     # Create Hercules real storage alter commands: r hexloc=data
     def rc_file(self,asm):
-        self.__find_contig(asm)   # Locate the chunks of contigous data.
+        self.__find_contig(asm)   # Locate the chunks of contiguous data.
         chunks=[]
         for c in self.contig:
             chunks.extend(c.chunks(16))  # maximum of 16 bytes altered by r command
@@ -252,7 +252,7 @@ class Chunk(object):
 class Contig(object):
     def __init__(self,start):
         self.start=start       # Starting address of contiguous area
-        self.next=start        # Addres of next contiguous area
+        self.next=start        # Address of next contiguous area
         self.data=[]           # Accumulated data
 
     def __str__(self):
@@ -260,7 +260,7 @@ class Contig(object):
         return "Contig(start=0x%X,end=0x%X,bytes=%s)" \
             % (self.start,self.start+length-1,length)
 
-    # Accumulates contigous data.
+    # Accumulates contiguous data.
     # Returns True if data is accepted as contiguous
     # Returns False if the data is not contiguous.
     def add(self,addr,data):
